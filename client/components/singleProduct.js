@@ -12,8 +12,7 @@ const dummyData = {
 };
 
 const SingleProduct = props => {
-  const { name, description, price, image, category, rating } = dummyData;
-  console.log('we got here');
+  const { name, description, price, image, category, rating } = props.product;
   return (
     <div>
       <div>
@@ -25,15 +24,18 @@ const SingleProduct = props => {
         <p>{description}</p>
 
         <div>
-          <h2>{price}</h2>
-          <select>
+          <h2>Price: {price}</h2>
+         <div>
+         <h2>Quanity:</h2>
+         <select>
             {() => {
               for (let i = 0; i < 11; i++) {
                 return <option>1</option>;
               }
             }}
           </select>
-          <h2>{rating}</h2>
+         </div>
+          <h2>Rating: {rating}</h2>
         </div>
         <button>Add To Cart</button>
       </div>
