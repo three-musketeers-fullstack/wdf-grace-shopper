@@ -49,8 +49,14 @@ const Product = db.define('product', {
   }
 })
 
+// class method to more easily filter by category
+// Product.findByCategories =  function(){
+
+// };
+
+// instance method will need to be wired up to user quanitity input
 Product.prototype.updateInventory = function(num) {
   this.inventory = this.inventory - num;
-}
+};
 
 module.exports = Product;

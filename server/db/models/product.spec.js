@@ -37,4 +37,8 @@ describe('Product model', () => {
       // })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
+
+  // describe('classMethods', () => {
+
+  // }) // end describe('classMethods')
 }) // end describe('User model')
