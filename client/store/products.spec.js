@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getSingleProduct } from '.products';
+import { getSingleProduct } from './products';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
@@ -9,7 +9,7 @@ import history from '../history';
 const middlewares = [thunkMiddleware];
 const mockStore = configureMockStore(middlewares);
 
-describe('thunk creators', () => {
+xdescribe('thunk creators', () => {
   let store;
   let mockAxios;
 
