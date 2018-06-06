@@ -1,5 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
+import { fetchSingleProduct } from '../store'
+
 
 const dummyData = {
   name: "productName",
@@ -11,36 +13,76 @@ const dummyData = {
   rating: 5
 };
 
-const SingleProduct = props => {
-  const { name, description, price, image, category, rating } = props.product;
-  return (
-    <div>
-      <div>
-        <h1>{name}</h1>
-        <img src={image} />
-        <h3>Category: {category}</h3>
-      </div>
-      <div>
-        <p>{description}</p>
+class SingleProduct extends Component {
 
+  constructor(props){
+    super(props)
+
+  }
+
+  componentDidMount ()  {
+    this.props.onLoad(1)
+  }
+
+  // render () {
+  //   return (<h1>testing</h1>)
+  // }
+
+  render(){
+    console.log(this.props,'>>>>>>>>>>>>>>')
+    if(!this.props.products) return (<h1>No Products</h1>)
+    else {
+    const { name, description, price, image, category, rating } = console.log(this.props.products.product);
+      return (
         <div>
-          <h2>Price: {price}</h2>
-         <div>
-         <h2>Quanity:</h2>
-         <select>
-            {() => {
-              for (let i = 0; i < 11; i++) {
-                return <option>1</option>;
-              }
-            }}
-          </select>
-         </div>
-          <h2>Rating: {rating}</h2>
-        </div>
-        <button>Add To Cart</button>
-      </div>
-    </div>
-  );
-};
+          <div>
+            <h1>{name}</h1>
+            <img src={image} />
+            <h3>Category: {category}</h3>
+          </div>
+          <div>
+            <p>{description}</p>
 
-export default SingleProduct;
+            <div>
+              <h2>Price: {price}</h2>
+             <div>
+             <h2>Quanity:</h2>
+             <select>
+                {() => {
+                  for (let i = 0; i < 11; i++) {
+                    return <option>1</option>;
+                  }
+                }}
+              </select>
+             </div>
+              <h2>Rating: {rating}</h2>
+            </div>
+            <button>Add To Cart</button>
+          </div>
+        </div>
+      );
+    }
+  }
+}
+
+
+
+
+const mapToProps = state => {
+  console.log("MAPTOPROPS", state)
+  return {
+    product: state.product
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoad: id => {
+      dispatch(fetchSingleProduct(id))
+    }
+
+  }
+}
+
+export default connect(mapToProps,mapDispatchToProps)(SingleProduct);
+
