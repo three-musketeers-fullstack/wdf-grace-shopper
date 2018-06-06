@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchSingleProduct } from '../store'
-
+import { fetchSingleProduct } from "../store";
 
 const dummyData = {
   name: "productName",
@@ -13,76 +12,77 @@ const dummyData = {
   rating: 5
 };
 
-class SingleProduct extends Component {
+const SingleProduct = props => {
+  // constructor(props){
+  //   super(props)
 
-  constructor(props){
-    super(props)
+  // }
 
-  }
-
-  componentDidMount ()  {
-    this.props.onLoad(1)
-  }
+  // componentDidMount ()  {
+  //   this.props.onLoad(1)
+  // }
 
   // render () {
   //   return (<h1>testing</h1>)
   // }
+  console.log(props, ">>>>>>>>>>>>>>");
+  console.log('<-------------------->')
+  if (!props.products) props.onLoad(Number(props.match.params.id))
+  console.log(props, 'post onLoad');
+  return <h1>No Products</h1>;
+  // else {
+  //   const { name, description, price, image, category, rating } = console.log(
+  //     props.products.product
+  //   );
+  //   return (
+  //     <div>
+  //       <div>
+  //         <h1>{name}</h1>
+  //         <img src={image} />
+  //         <h3>Category: {category}</h3>
+  //       </div>
+  //       <div>
+  //         <p>{description}</p>
 
-  render(){
-    console.log(this.props,'>>>>>>>>>>>>>>')
-    if(!this.props.products) return (<h1>No Products</h1>)
-    else {
-    const { name, description, price, image, category, rating } = console.log(this.props.products.product);
-      return (
-        <div>
-          <div>
-            <h1>{name}</h1>
-            <img src={image} />
-            <h3>Category: {category}</h3>
-          </div>
-          <div>
-            <p>{description}</p>
-
-            <div>
-              <h2>Price: {price}</h2>
-             <div>
-             <h2>Quanity:</h2>
-             <select>
-                {() => {
-                  for (let i = 0; i < 11; i++) {
-                    return <option>1</option>;
-                  }
-                }}
-              </select>
-             </div>
-              <h2>Rating: {rating}</h2>
-            </div>
-            <button>Add To Cart</button>
-          </div>
-        </div>
-      );
-    }
-  }
-}
-
-
-
+  //         <div>
+  //           <h2>Price: {price}</h2>
+  //           <div>
+  //             <h2>Quanity:</h2>
+  //             <select>
+  //               {() => {
+  //                 for (let i = 0; i < 11; i++) {
+  //                   return <option>1</option>;
+  //                 }
+  //               }}
+  //             </select>
+  //           </div>
+  //           <h2>Rating: {rating}</h2>
+  //         </div>
+  //         <button>Add To Cart</button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+};
 
 const mapToProps = state => {
-  console.log("MAPTOPROPS", state)
+  console.log("MAPTOPROPS", state);
   return {
+    products: state.products,
     product: state.product
   };
-}
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log('MAPDISPATCH TO PROPS>>>>>', ownProps)
   return {
-    onLoad: id => {
-      dispatch(fetchSingleProduct(id))
+    onLoad: function() {
+      dispatch(fetchSingleProduct(ownProps.params.match.id));
     }
+  };
+};
 
-  }
-}
-
-export default connect(mapToProps,mapDispatchToProps)(SingleProduct);
-
+export default connect(
+  mapToProps,
+  mapDispatchToProps
+)(SingleProduct);
