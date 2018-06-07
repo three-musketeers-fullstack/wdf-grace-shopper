@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 /**
  * COMPONENT
  */
 
 export const Homepage = props => {
-  const { products } = props;
-  console.log(props,'HOME PAGE>><><<><>><><><><>')
+  const { products } = props.products;
+  console.log(props, 'HOME PAGE PROPS>><><<><>><><><><>');
+  console.log(products, 'HOME PAGE PRODUCTS !!<><<><>><><><><>!!');
   return (
     <div>
       <h1>cubed</h1>
@@ -17,11 +17,12 @@ export const Homepage = props => {
         {products.map(product => {
           return (
             <div key={product.id}>
-              <Link to="/singleProduct">
+              <Link to={`/products/${product.id}`}>
                 <h3>{product.name}</h3>
-                <p>{product.price}</p>
-                <p>{product.quanitity}</p>
+                <img src={product.imageUrl} alt="" />
               </Link>
+              <p>{product.price}</p>
+              <p>{product.quanitity}</p>
             </div>
           );
         })}
@@ -78,10 +79,18 @@ export const Homepage = props => {
  * CONTAINER
  */
 
-const mapState = ({ products }) => ({ products })
+const mapState = state => ({
+  products: state.products,
+});
 
-export default connect(mapState)(Homepage);
+const HomepageContainer = connect(mapState)(Homepage);
+
+export default HomepageContainer;
 
 /**
  * PROP TYPES
  */
+
+Homepage.propTypes = {
+  products: PropTypes.object,
+};
