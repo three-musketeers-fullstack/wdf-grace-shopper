@@ -6,48 +6,51 @@ import { fetchSingleProduct } from '../store';
 const SingleProduct = props => {
   console.log(props, '>>>>>>>>>>>>>>');
   console.log('<-------------------->');
-  // if (!props.products) props.onLoad(Number(props.match.params.id))
-  console.log(props, 'post onLoad');
-  // return <h1>No Products</h1>;
-  // else {
-  const {
-    name,
-    description,
-    price,
-    image,
-    category,
-    rating,
-  } = props.products.product;
-  return (
-    <div>
+  if (!props.products) {
+    props.onLoad(Number(props.match.params.id));
+    console.log(props, 'post onLoad');
+    return <h1>No Products</h1>;
+  } else {
+    const {
+      name,
+      description,
+      price,
+      image,
+      category,
+      rating,
+    } = props.products.product;
+    return (
       <div>
-        <h1>{name}</h1>
-        <img src={image} />
-        <h3>Category: {category}</h3>
-      </div>
-      <div>
-        <p>{description}</p>
-
         <div>
-          <h2>Price: {price}</h2>
-          <div>
-            <h2>Quanity:</h2>
-            <select>
-              <option>1</option>
-              {//() => {
-                // what is this for loop?
-                // for (let i = 0; i < 11; i++) {
-                //   return <option>1</option>;
-                // }
-              }
-            </select>
-          </div>
-          <h2>Rating: {rating}</h2>
+          <h1>{name}</h1>
+          <img src={image} />
+          <h3>Category: {category}</h3>
         </div>
-        <button>Add To Cart</button>
+        <div>
+          <p>{description}</p>
+
+          <div>
+            <h2>Price: {price}</h2>
+            <div>
+              <h2>Quanity:</h2>
+              <select>
+                <option>1</option>
+                {
+                  //() => {
+                  // what is this for loop?
+                  // for (let i = 0; i < 11; i++) {
+                  //   return <option>1</option>;
+                  // }
+                }
+              </select>
+            </div>
+            <h2>Rating: {rating}</h2>
+          </div>
+          <button>Add To Cart</button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 const mapToProps = state => {

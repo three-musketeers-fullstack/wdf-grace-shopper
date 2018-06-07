@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -18,11 +18,11 @@ export const Homepage = props => {
           return (
             <div key={product.id}>
               <Link to={`/products/${product.id}`}>
-                <h3>{product.name}</h3>
+                <h3>{product.title}</h3>
                 <img src={product.imageUrl} alt="" />
               </Link>
-              <p>{product.price}</p>
-              <p>{product.quanitity}</p>
+              <p>Price: {product.price}</p>
+              <p>In Stock: {product.inventory}</p>
             </div>
           );
         })}
