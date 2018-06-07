@@ -22,13 +22,14 @@ router.put("/:userId", (req, res, next) => {
 
 //To get all previous purchases for User
 
-router.put('/:userId', (req,res,next) => {
-    Order.findAll(
-        {
-            where: {userId: req.params.id}
-        }
-    )
-})
+router.put("/:userId", (req, res, next) => {
+  Order.findAll({
+    where: {
+      userId: req.params.id,
+      isPurchased: true
+    }
+  });
+});
 
 // router.put('/:orderId',(req,res,next) => {
 //     Order
