@@ -4,7 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Cart} from './components'
 import Homepage from './components/Homepage.jsx';
-import {me} from './store'
+import {me, fetchAllProducts} from './store'
 
 /**
  * COMPONENT
@@ -23,7 +23,8 @@ class Routes extends Component {
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path='/cart' component={Cart} />
+        <Route exact path="/products" component={Homepage} />
+        <Route path="/products/:id" component={SingleProduct}/>
         {
           isLoggedIn &&
             <Switch>
@@ -33,7 +34,6 @@ class Routes extends Component {
         }
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
-        <Route exact path="/homepage" component={Homepage} />
       </Switch>
     )
   }
@@ -54,6 +54,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      dispatch(fetchAllProducts());
     }
   }
 }
