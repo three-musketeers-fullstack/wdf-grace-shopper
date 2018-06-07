@@ -31,50 +31,6 @@ export const Homepage = props => {
   );
 };
 
-// export default class Homepage extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       products: [],
-//     };
-//   }
-
-//   componentDidMount() {
-//     axios
-//       .get('/api/products')
-//       .then(res => res.data)
-//       .then(products => {
-//         this.setState({ products });
-//       })
-//       .catch(console.error);
-//   }
-//   render() {
-//     const products = this.state.products;
-//     console.log('products:', products);
-//     return (
-//       <div>
-//         <h1>cubed</h1>
-//         <div className="all-products-view">
-//           <h1>TEST</h1>
-//           {products.map(product => {
-//             return (
-//               <div key={product.id}>
-//                 <Link to={`/products/${product.id}`}>
-//                   <h3>{product.title}</h3>
-//                   <img src={product.imageUrl} alt="" />
-//                 </Link>
-//                 <p>Price: {product.price}</p>
-//                 <p>In Stock: {product.inventory}</p>
-//               </div>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
 /**
  * CONTAINER
  */
