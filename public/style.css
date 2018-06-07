@@ -20,16 +20,48 @@ form div {
   display: inline-block;
 }
 
+.font-color-red {
+  color: #d02121;
+}
+
+.font-color-blue {
+  color: #0930bd;
+}
+
+.font-color-green {
+  color: #3f8819;
+}
+
 img {
   max-width: 100%;
 }
 
 .img-small {
-  width: 25%
+  width: 250px
+}
+
+.just-cont-space-between {
+  justify-content: space-between;
 }
 
 label {
   display: block;
+}
+
+.margin-30px {
+  margin: 30px;
+}
+
+.margin-50px {
+  margin: 50px;
+}
+
+.margin-80px-sides {
+  margin: 0px 80px;
+}
+
+.margin-250px-sides {
+  margin: 0px 250px;
 }
 
 nav a {
