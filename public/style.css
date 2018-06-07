@@ -1,9 +1,31 @@
+a {
+  text-decoration: none;
+}
+
 body {
   font-family: sans-serif;
 }
 
-a {
-  text-decoration: none;
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+}
+
+.img-small {
+  width: 25%
 }
 
 label {
@@ -15,7 +37,4 @@ nav a {
   margin: 1em;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
-}
+

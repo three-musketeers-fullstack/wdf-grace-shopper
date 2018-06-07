@@ -12,7 +12,7 @@ const dummyData = {
 };
 
 const SingleProduct = props => {
-  const { name, description, price, image, category, rating } = props.product;
+  const { name, description, price, image, category, rating } = props.product || dummyData;
   return (
     <div>
       <div>
