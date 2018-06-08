@@ -41,7 +41,7 @@ const Product = db.define('product', {
     }
   },
   rating: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     validate: {
       min: 1,
       max: 5
