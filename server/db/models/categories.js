@@ -4,8 +4,8 @@ const db = require('../db');
 
 const Categories = db.define('category', {
     name: {
-        unique: true,
-        allowNull: false
+        type: Sequelize.STRING,
+        unique: true
     }
 })
 

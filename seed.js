@@ -8,7 +8,6 @@ const products = [
     description: 'A tantalizing puzzle game for all ages',
     price: 18,
     inventory: 88,
-    category: ['toys', 'education'],
     rating: 4,
   },
   {
@@ -17,8 +16,6 @@ const products = [
       'Only the finest chicken stock. For any stew that needs a hint of chicken.',
     price: 7,
     inventory: 140,
-    category: ['food'],
-    rating: 4,
   },
   {
     title: 'Ice Cube',
@@ -26,7 +23,6 @@ const products = [
       'A sit down dinner with the star of "Are We There Yet?" and NWA (seriously).',
     price: 4500,
     inventory: 2,
-    category: ['entertainment', 'food'],
     rating: 4,
   },
   {
@@ -34,8 +30,6 @@ const products = [
     description: "Isn't this just the most oddly shaped car?",
     price: 19500,
     inventory: 1,
-    category: ['cars'],
-    rating: 2,
   },
   {
     title: 'Ice Cube (Tray)',
@@ -43,7 +37,6 @@ const products = [
       'Not to be mistaken for Ice Cube. This is used to make frozen cubes of water.',
     price: 2,
     inventory: 1000,
-    category: ['toys', 'education'],
     rating: 3,
   },
   {
@@ -52,7 +45,6 @@ const products = [
       'One of the best gaming consoles of its generation. Easily the cubiest, as well.',
     price: 300,
     inventory: 12,
-    category: ['toys', 'electronics'],
     rating: 4,
   },
 ];
