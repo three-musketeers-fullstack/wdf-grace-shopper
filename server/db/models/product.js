@@ -31,14 +31,7 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: 'https://image.freepik.com/free-icon/single-cube_318-36160.jpg'
-  },
-  category: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    defaultValue: '/default-cube.jpg'
   },
   rating: {
     type: Sequelize.INTEGER,
@@ -49,10 +42,6 @@ const Product = db.define('product', {
   }
 })
 
-// class method to more easily filter by category
-// Product.findByCategories =  function(){
-
-// };
 
 // instance method will need to be wired up to user quanitity input
 Product.prototype.updateInventory = function(num) {
