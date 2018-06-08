@@ -33,13 +33,6 @@ const Product = db.define('product', {
     type: Sequelize.TEXT,
     defaultValue: '/default-cube.jpg'
   },
-  category: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
   rating: {
     type: Sequelize.INTEGER,
     validate: {
@@ -49,10 +42,6 @@ const Product = db.define('product', {
   }
 })
 
-// class method to more easily filter by category
-// Product.findByCategories =  function(){
-
-// };
 
 // instance method will need to be wired up to user quanitity input
 Product.prototype.updateInventory = function(num) {
