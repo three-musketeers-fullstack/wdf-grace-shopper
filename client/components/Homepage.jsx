@@ -9,14 +9,14 @@ import { Link } from 'react-router-dom';
 export const Homepage = props => {
   const { products } = props.products;
   const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5', 'Category 6', 'Category 7']
-  console.log(props, 'HOME PAGE PROPS>><><<><>><><><><>');
-  console.log(products, 'HOME PAGE PRODUCTS !!<><<><>><><><><>!!');
+  // console.log(props, 'HOME PAGE PROPS>><><<><>><><><><>');
+  // console.log(products, 'HOME PAGE PRODUCTS !!<><<><>><><><><>!!');
   return (
     <div className="flex-row">
     <div>
       {categories.map(category => {
           return (
-            <h1>{category}</h1>
+            <a onClick={props.filteredProducts}><h1>{category}</h1></a>
           )
       })}
     </div>
@@ -47,6 +47,7 @@ export const Homepage = props => {
 
 const mapState = state => ({
   products: state.products,
+  filteredProducts: () => {}
 });
 
 const HomepageContainer = connect(mapState)(Homepage);
