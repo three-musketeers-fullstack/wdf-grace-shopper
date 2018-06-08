@@ -25,10 +25,9 @@ router.get('/:userId', (req, res, next) => {
 
 router.put('/:userId', (req,res,next) => {
   Order.findOrCreate({where: { userId: req.params.userId }})
-
   .then(result => result[0])
   .then(order => {
-    order.addProducts(product);
+    order.addProducts(req.body.productId);
     res.send(order);
   })
   .catch(next)
