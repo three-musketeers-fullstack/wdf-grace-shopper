@@ -1,5 +1,5 @@
-const router = require('express').Router()
-const { Order, User } = require('../db/models');
+const router = require('express').Router();
+const { Order, User, OrderProduct } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
@@ -17,22 +17,23 @@ router.get('/:userId', (req, res, next) => {
       isPurchased: true,
     },
   })
-  .then(result => result.data)
-  .then(orderHistory => res.send(orderHistory))
-  .catch(next);
+    .then(result => result.data)
+    .then(orderHistory => res.send(orderHistory))
+    .catch(next);
 });
 // instantiate/update cart upon adding product
 
-router.put('/:userId', (req,res,next) => {
-  Order.findOrCreate({where: { userId: req.params.userId }})
-  .then(result => result[0])
-  .then(order => {
-    order.addProducts(req.body.productId);
-    res.send(order);
-  })
-  .catch(next)
+router.put('/:userId', (req, res, next) => {
+  Order.findOrCreate({ where: { userId: req.params.userId } })
+    .then(result => result[0])
+    .then(order => {
+      order.addProducts(req.body.productId, {
+        through: { quantity: req.body.quantity },
+      });
+      res.send(order);
+    })
+    .catch(next);
 });
-
 
 //TO change is purchased in cart
 router.put('/:userId/checkout', (req, res, next) => {
@@ -43,10 +44,14 @@ router.put('/:userId/checkout', (req, res, next) => {
     {
       where: { userId: req.params.userId },
     }
-  );
+  ).then(filledOrder => {
+    OrderProduct.update(
+      { price: filledOrder.total },
+      { where: { orderId: filledOrder.id } }
+    )
+    .then(result => res.status(203).send(result))
+  });
 });
-
-
 
 // router.put('/:orderId',(req,res,next) => {
 //     Order
