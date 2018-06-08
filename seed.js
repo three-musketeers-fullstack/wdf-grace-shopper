@@ -16,20 +16,22 @@ const products = [
       'Only the finest chicken stock. For any stew that needs a hint of chicken.',
     price: 7,
     inventory: 140,
+    rating: 4
   },
   {
     title: 'Ice Cube',
     description:
       'A sit down dinner with the star of "Are We There Yet?" and NWA (seriously).',
     price: 4500,
-    inventory: 2,
-    rating: 4,
+    inventory: 6,
+    rating: 4
   },
   {
     title: 'Nissan Cube',
     description: "Isn't this just the most oddly shaped car?",
     price: 19500,
-    inventory: 1,
+    inventory: 0,
+    rating: 3
   },
   {
     title: 'Ice Cube (Tray)',
@@ -45,7 +47,7 @@ const products = [
       'One of the best gaming consoles of its generation. Easily the cubiest, as well.',
     price: 300,
     inventory: 12,
-    rating: 4,
+    rating: 4
   },
 ];
 
