@@ -31,7 +31,7 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: 'https://image.freepik.com/free-icon/single-cube_318-36160.jpg'
+    defaultValue: '/default-cube.jpg'
   },
   category: {
     type: Sequelize.ARRAY(Sequelize.STRING),

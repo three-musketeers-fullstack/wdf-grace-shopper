@@ -8,11 +8,19 @@ import { Link } from 'react-router-dom';
 
 export const Homepage = props => {
   const { products } = props.products;
+  const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5', 'Category 6', 'Category 7']
   console.log(props, 'HOME PAGE PROPS>><><<><>><><><><>');
   console.log(products, 'HOME PAGE PRODUCTS !!<><<><>><><><><>!!');
   return (
+    <div className="flex-row">
     <div>
-      <h1>cubed</h1>
+      {categories.map(category => {
+          return (
+            <h1>{category}</h1>
+          )
+      })}
+    </div>
+    <div>
       <div className="all-products-view">
         {products.map(product => {
           return (
@@ -27,6 +35,8 @@ export const Homepage = props => {
           );
         })}
       </div>
+    </div>
+
     </div>
   );
 };
