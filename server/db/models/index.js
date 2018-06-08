@@ -2,14 +2,18 @@ const User = require("./user");
 const Product = require("./product");
 const Order = require("./order");
 const Categories = require("./categories");
+const OrderProduct = require('./order-product');
 
 Order.belongsTo(User);
 User.hasMany(Order);
 // Order.getUser(), Order.setUser(), Order.createUser()
 // User.getOrders(), User.setOrders(), User.createOrder(), User.addOrder(), User.addOrders(), User.removeOrder(), User.removeOrders(), User.hasOrder(), User.hasOrders(), User.coutOrders()
 
-Order.belongsToMany(Product, { through: "Cart" });
-Product.belongsToMany(Order, { through: "Cart" });
+Order.belongsToMany(Product, { through: OrderProduct });
+Product.belongsToMany(Order, { through: OrderProduct });
+//Set the association between order and product on a pre defined model
+//that has quanity and price field included
+
 // order/product.getFriends() // returns a promise for the array of friends for that order/product
 // order/product.addFriend(friend) // creates a new row in the friendship table for the order/product and the friend, returns a promise for the friendship (NOT the order/product OR the friend - the "friendship")
 // order/product.addFriends(friendsArray) // creates a new row in the friendship table for each friend, returns a promise for the friendship
@@ -26,5 +30,7 @@ module.exports = {
   User,
   Product,
   Order,
-  Categories
+  Categories,
+  OrderProduct
 };
+//OrderProduct can possibly be removed from exports
