@@ -14,10 +14,10 @@ const Product = db.define('product', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0.00,
+      min: 0,
       notEmpty: true
     }
   },
@@ -31,7 +31,7 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: '/default-cube.jpg'
+    defaultValue: '/images/default-cube.jpg'
   },
   rating: {
     type: Sequelize.INTEGER,

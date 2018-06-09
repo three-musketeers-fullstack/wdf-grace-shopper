@@ -1,7 +1,7 @@
 const User = require("./user");
 const Product = require("./product");
 const Order = require("./order");
-const Categories = require("./categories");
+const Category = require("./categories");
 const OrderProduct = require('./order-product');
 
 Order.belongsTo(User);
@@ -20,8 +20,8 @@ Product.belongsToMany(Order, { through: OrderProduct });
 // order/product.removeFriend(friend) // removes the row from the friendship table for that order/product-friend, returns a promise for the number of affected rows (as if you'd want to destroy any friendships...right?)
 // order/product.removeFriends(friendsArray) // removes the rows from the friendship table for those order/product-friend pairs, returns a promise for the number affected rows
 
-Categories.belongsToMany(Product, { through:  'category-product'});
-Product.belongsToMany(Categories, { through: 'category-product' });
+Category.belongsToMany(Product, { through:  'category-product'});
+Product.belongsToMany(Category, { through: 'category-product' });
 //Product.setCategory('category name') // set a category to a product
 // Categories.getProducts() // gets all the products of a specific category
 
@@ -30,7 +30,7 @@ module.exports = {
   User,
   Product,
   Order,
-  Categories,
+  Category,
   OrderProduct
 };
 //OrderProduct can possibly be removed from exports

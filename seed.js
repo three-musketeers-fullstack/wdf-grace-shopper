@@ -1,85 +1,109 @@
-const Sequelize = require('sequelize');
-const db = require('./server/db');
-const { User, Product } = require('./server/db/models');
+const Sequelize = require("sequelize");
+const db = require("./server/db");
+const { User, Product, Category } = require("./server/db/models");
+
+const categories = [
+  {
+    name: 'Toys'
+  },
+  {
+    name: "Cooling Articles"
+  },
+  {
+    name: 'Electronics'
+  },
+  {
+    name: 'Food & Groceries'
+  },
+  {
+    name: 'Beauty & Health'
+  },
+  {
+    name: 'Home & Garding'
+  }
+]
 
 const products = [
   {
-    title: 'Rubix Cube',
-    description: 'A tantalizing puzzle game for all ages',
-    price: 18,
-    inventory: 88,
-    rating: 4,
-  },
-  {
-    title: 'Boullion Cube',
-    description:
-      'Only the finest chicken stock. For any stew that needs a hint of chicken.',
-    price: 7,
-    inventory: 140,
+    title: "Rubix Cube",
+    description: "A tantalizing puzzle game for all ages",
+    price: 1835,
+    inventory: 8800,
     rating: 4
   },
   {
-    title: 'Ice Cube',
+    title: "Boullion Cube",
+    description:
+      "Only the finest chicken stock. For any stew that needs a hint of chicken.",
+    price: 7240,
+    inventory: 14050,
+    rating: 4
+  },
+  {
+    title: "Ice Cube",
     description:
       'A sit down dinner with the star of "Are We There Yet?" and NWA (seriously).',
-    price: 4500,
+    price: 450000,
     inventory: 6,
     rating: 4
   },
   {
-    title: 'Nissan Cube',
+    title: "Nissan Cube",
     description: "Isn't this just the most oddly shaped car?",
-    price: 19500,
+    price: 1950000,
     inventory: 0,
     rating: 3
   },
   {
-    title: 'Ice Cube (Tray)',
+    title: "Ice Cube (Tray)",
     description:
-      'Not to be mistaken for Ice Cube. This is used to make frozen cubes of water.',
-    price: 2,
+      "Not to be mistaken for Ice Cube. This is used to make frozen cubes of water.",
+    price: 299,
     inventory: 1000,
-    rating: 3,
+    rating: 3
   },
   {
-    title: 'Nintendo Gamecube',
+    title: "Nintendo Gamecube",
     description:
-      'One of the best gaming consoles of its generation. Easily the cubiest, as well.',
-    price: 300,
+      "One of the best gaming consoles of its generation. Easily the cubiest, as well.",
+    price: 30075,
     inventory: 12,
     rating: 4
-  },
+  }
 ];
 
 const id = () => Math.floor(Math.random() * products.length) + 1;
 
 const users = [
   {
-    email: 'omri@omri.omri',
-    password: 123,
+    email: "omri@omri.omri",
+    password: 123
   },
   {
-    email: 'jon@web.dev',
-    password: 111,
+    email: "jon@web.dev",
+    password: 111
   },
   {
-    email: 'cubelover@corner.three',
-    password: 3927,
-  },
+    email: "cubelover@corner.three",
+    password: 3927
+  }
 ];
 
 const seed = () =>
-  Promise.all(products.map(product => Product.create(product)));
+  
+
+  Promise.all(products.map(product => Product.create(product)))
+  .then(Promise.all(categories.map(category => Category.create(category))))
 
 const main = () => {
-  console.log('Syncing db...');
+  console.log("Syncing db...");
   db.sync({ force: true })
     .then(() => {
-      console.log('Seeding databse...');
+      console.log("Seeding databse...");
       return seed();
     })
     .catch(err => {
-      console.log('Error while seeding');
+      console.log("Error while seeding");
       console.log(err.stack);
     })
     .then(() => {
