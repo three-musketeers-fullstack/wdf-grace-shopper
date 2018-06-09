@@ -6,7 +6,7 @@ const dummyData = [
     title: "Ice Cubes",
     description: "Awesome Cube",
     price: `$${1000}`,
-    imageUrl: "/default-cube.jpg",
+    imageUrl: "/images/default-cube.jpg",
     inventory: 6,
     category: ["small cube"],
     rating: 5
@@ -15,7 +15,7 @@ const dummyData = [
     title: "Nissan Cube",
     description: "Awesome Cube",
     price: `$${500}`,
-    imageUrl: "/default-cube.jpg",
+    imageUrl: "/images/default-cube.jpg",
     inventory: 0,
     category: ["small cube"],
     rating: 4
@@ -24,7 +24,7 @@ const dummyData = [
     title: "Legos Cube",
     description: "Awesome Cube",
     price: `$${200}`,
-    imageUrl: "/default-cube.jpg",
+    imageUrl: "/images/default-cube.jpg",
     inventory: 11,
     category: ["small cube"],
     rating: 4.5

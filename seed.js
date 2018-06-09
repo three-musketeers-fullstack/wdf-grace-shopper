@@ -27,30 +27,30 @@ const products = [
   {
     title: "Rubix Cube",
     description: "A tantalizing puzzle game for all ages",
-    price: 18,
-    inventory: 88,
+    price: 1835,
+    inventory: 8800,
     rating: 4
   },
   {
     title: "Boullion Cube",
     description:
       "Only the finest chicken stock. For any stew that needs a hint of chicken.",
-    price: 7,
-    inventory: 140,
+    price: 7240,
+    inventory: 14050,
     rating: 4
   },
   {
     title: "Ice Cube",
     description:
       'A sit down dinner with the star of "Are We There Yet?" and NWA (seriously).',
-    price: 4500,
+    price: 450000,
     inventory: 6,
     rating: 4
   },
   {
     title: "Nissan Cube",
     description: "Isn't this just the most oddly shaped car?",
-    price: 19500,
+    price: 1950000,
     inventory: 0,
     rating: 3
   },
@@ -58,7 +58,7 @@ const products = [
     title: "Ice Cube (Tray)",
     description:
       "Not to be mistaken for Ice Cube. This is used to make frozen cubes of water.",
-    price: 2,
+    price: 299,
     inventory: 1000,
     rating: 3
   },
@@ -66,7 +66,7 @@ const products = [
     title: "Nintendo Gamecube",
     description:
       "One of the best gaming consoles of its generation. Easily the cubiest, as well.",
-    price: 300,
+    price: 30075,
     inventory: 12,
     rating: 4
   }
