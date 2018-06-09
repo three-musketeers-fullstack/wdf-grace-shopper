@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { updateChosenCategory,  displayAllProducts } from "../store";
+import { updateChosenCategory, displayAllProducts } from "../store";
 /**
  * COMPONENT
  */
@@ -19,19 +19,22 @@ export const Homepage = props => {
       );
   return (
     <div className="flex-row">
-      <div className="flex-column width-35vw">
-        <a href="#">
-          <h3 onClick={handleAllProductsClick}>All Products</h3>
-        </a>
+      <div id="sidebar">
+        <div>
+          <a href="#">
+            <h3 className="margin-15px-10px font-size-1-05em" onClick={handleAllProductsClick}>All Products</h3>
+          </a>
+        </div>
         {categories &&
           categories.map(category => {
             return (
-              <button
+              <a
                 onClick={() => handleCategoryClick(category.name)}
                 key={category.id}
+                href="#"
               >
-                <h3>{category.name}</h3>
-              </button>
+                <h3 className=" font-size-1em margin-15px-20px">{category.name}</h3>
+              </a>
             );
           })}
       </div>
