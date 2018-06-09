@@ -8,13 +8,14 @@ import { Link } from 'react-router-dom';
 
 export const Homepage = props => {
   const { products } = props.products;
-  const categories = props.categories;
+  const  categories  = props.categories;
+  console.log(props.categories)
   return (
     <div className="flex-row">
     <div>
-      {categories.map(category => {
+      {categories && categories.map(category => {
           return (
-            <a key={category.id}><h1>{category}</h1></a>
+            <a key={category.id}><h1>{category.name}</h1></a>
           )
       })}
     </div>
@@ -57,5 +58,5 @@ export default HomepageContainer;
  */
 
 Homepage.propTypes = {
-  products: PropTypes.object,
+  products: PropTypes.object
 };

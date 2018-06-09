@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 
-const Categories = db.define('category', {
+const Category = db.define('category', {
     name: {
         type: Sequelize.STRING,
         unique: true
@@ -10,4 +10,4 @@ const Categories = db.define('category', {
 })
 
 
-module.exports = Categories;
+module.exports = Category;
