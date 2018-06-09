@@ -17,7 +17,13 @@ const SingleProduct = props => {
       <div>
         <h1>{product.title}</h1>
         <img src={product.imageUrl} />
-        <h3>Category: Something</h3>
+        <h3>
+          Category:{" "}
+          {product.categories &&
+            product.categories
+              .map(category => category.name)
+              .join(", ")}
+        </h3>
       </div>
       <div>
         <p>{product.description}</p>
