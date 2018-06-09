@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { updateChosenCategory } from "../store";
+import { updateChosenCategory,  displayAllProducts } from "../store";
 /**
  * COMPONENT
  */
 
 export const Homepage = props => {
   const { categories } = props;
-  const { handleCategoryClick } = props;
+  const { handleCategoryClick, handleAllProductsClick } = props;
   let products = !props.chosenCategory
     ? props.products
     : props.products.filter(product =>
@@ -19,7 +19,10 @@ export const Homepage = props => {
       );
   return (
     <div className="flex-row">
-      <div className="width-35vw">
+      <div className="flex-column width-35vw">
+        <a href="#">
+          <h3 onClick={handleAllProductsClick}>All Products</h3>
+        </a>
         {categories &&
           categories.map(category => {
             return (
@@ -88,6 +91,7 @@ const mapState = state => {
 };
 
 const mapDispatch = dispatch => ({
+  handleAllProductsClick: () => dispatch(displayAllProducts()),
   handleCategoryClick: category => dispatch(updateChosenCategory(category))
 });
 
