@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 const dummyData = [
   {
+    id: 1,
     title: "Ice Cubes",
     description: "Awesome Cube",
     price: `$${1000}`,
@@ -12,6 +13,7 @@ const dummyData = [
     rating: 5
   },
   {
+    id: 2,
     title: "Nissan Cube",
     description: "Awesome Cube",
     price: `$${500}`,
@@ -21,6 +23,7 @@ const dummyData = [
     rating: 4
   },
   {
+    id: 3,
     title: "Legos Cube",
     description: "Awesome Cube",
     price: `$${200}`,
@@ -38,7 +41,7 @@ const Cart = props => {
       <hr />
       {dummyData.map(product => {
         return (
-          <div>
+          <div key={product.id}>
             <div className="flex-row just-cont-space-between">
               <div className="flex-row just-cont-space-between">
                 <div className="img-small">

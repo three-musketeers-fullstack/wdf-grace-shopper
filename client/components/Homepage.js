@@ -10,6 +10,8 @@ import { updateChosenCategory, displayAllProducts } from "../store";
 export const Homepage = props => {
   const { categories } = props;
   const { handleCategoryClick, handleAllProductsClick } = props;
+
+  // Assigns all products as products variable if category is not chosen otherwise it assigns all the products with the chosen category
   let products = !props.chosenCategory
     ? props.products
     : props.products.filter(product =>
@@ -69,15 +71,18 @@ export const Homepage = props => {
               </h2>
               {product.inventory ? (
                 product.inventory < 10 ? (
+                  // It renders if inventory less than 10
                   <h3 className="margin-10px-20px font-color-red">
                     Only {product.inventory} left
                   </h3>
                 ) : (
+                  // It renders if inventory more than 10
                   <h3 className="margin-10px-20px font-color-green">
                     In Stock
                   </h3>
                 )
               ) : (
+                // It renders if inventory is 0 
                 <h3 className="margin-10px-20px font-color-red">
                   Out of Stock
                 </h3>
@@ -104,7 +109,9 @@ const mapState = state => {
 };
 
 const mapDispatch = dispatch => ({
+  //Deletes chosenCategory in the state so it renders all products again
   handleAllProductsClick: () => dispatch(displayAllProducts()),
+  //Updates chosenCategory's state with the one clicked
   handleCategoryClick: category => dispatch(updateChosenCategory(category))
 });
 
