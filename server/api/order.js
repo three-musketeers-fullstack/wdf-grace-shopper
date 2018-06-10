@@ -27,7 +27,7 @@ router.put('/cart/:userId', (req, res, next) => {
   Order.findOrCreate({ where: { userId: req.params.userId } })
     .then(result => result[0])
     .then(order => {
-      return order.addProduct(req.body.productId, {
+      return order.addProducts(req.body.productId, {
         through: { quantity: req.body.quantity },
       });
     })

@@ -32,13 +32,18 @@ const SingleProduct = props => {
             <h2>Quanity:</h2>
             <select>
               <option>1</option>
+              <option>2</option>
             </select>
           </div>
           <h2>Rating: {product.rating}</h2>
         </div>
         <button
           type="button"
-          onClick={() => props.addItemToUserCart(props.user.id, product)}
+          onClick={() => {
+            // const quantOption = document.getElementByTagName('option:selected');
+            const reqBody = {userId: props.user.id, productId: product.id, quantity: product.inventory};
+            props.addItemToUserCart(props.user.id, reqBody)
+          }}
         >
           Add To Cart
         </button>

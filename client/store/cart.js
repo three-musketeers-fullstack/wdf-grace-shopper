@@ -39,12 +39,16 @@ const removeFromGuestCart = product => {
 
 // THUNK CREATORS
 export const addItemToUserCart = (userId, product) => dispatch => {
-  const {price, quantity} = product;
+  console.log('thunk product:', product);
+  const { productId, quantity } = product;
   if (userId) {
-    axios.put(`/api/orders/cart/${userId}`, {price, quantity}).then(cartItem => {
-      dispatch(addToUserCart(cartItem));
-    })
-    .catch(err => console.error(err));
+    axios
+      .put(`/api/orders/cart/${userId}`, {productId, quantity})
+      .then(cartItem => {
+        console.log(cartItem);
+        dispatch(addToUserCart(cartItem));
+      })
+      .catch(err => console.error(err));
   }
 };
 
