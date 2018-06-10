@@ -22,7 +22,12 @@ export const Homepage = props => {
       <div id="sidebar">
         <div>
           <a href="#">
-            <h3 className="margin-15px-10px font-size-1-05em" onClick={handleAllProductsClick}>All Products</h3>
+            <h3
+              className="categories margin-15px-10px font-size-1-05em"
+              onClick={handleAllProductsClick}
+            >
+              All Products
+            </h3>
           </a>
         </div>
         {categories &&
@@ -33,7 +38,12 @@ export const Homepage = props => {
                 key={category.id}
                 href="#"
               >
-                <h3 className=" font-size-1em margin-15px-20px">{category.name}</h3>
+                <h3
+                  className=" categories margin-15px-20px
+                font-size-1em"
+                >
+                  {category.name}
+                </h3>
               </a>
             );
           })}
@@ -47,7 +57,7 @@ export const Homepage = props => {
                 to={`/products/${product.id}`}
               >
                 <img className=" img-all-products" src={product.imageUrl} />
-                <h2 className="font-size-2em">{product.title}</h2>
+                <h2 className="categories font-size-2em">{product.title}</h2>
               </Link>
               <h3 className="margin-10px-20px">{product.rating} stars</h3>
               <h2

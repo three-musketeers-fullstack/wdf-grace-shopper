@@ -10,6 +10,18 @@ body {
   font-family: sans-serif;
 }
 
+.categories {
+  color: black;
+}
+
+.categories:hover {
+  text-shadow: 0px 0px 1.5px rgb(19, 228, 247);
+}
+
+.color-white {
+  color: white;
+}
+
 .shooping-cart-styling {
   height: calc(16vw - 10em);
   filter: invert(100%);
@@ -62,7 +74,6 @@ form div {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
   background-image: linear-gradient(45deg, #f3faff, #2c88b1);
   border-radius: 0 0 1em 0;
   transition: transform 0.5s ease;
@@ -186,8 +197,6 @@ nav a {
   border-right: inset 4px #dcf3ff;
   background-image: linear-gradient(136deg, #ffffff, #89cdeab8);
 }
-
-
 
 .width-35vw {
   width: calc(35vw - 7em);
