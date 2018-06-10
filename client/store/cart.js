@@ -1,33 +1,50 @@
 import axios from 'axios';
 
 // * ACTION TYPES
-const ADD_TO_CART = 'ADD_TO_CART';
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+const USER_ADD_TO_CART = 'USER_ADD_TO_CART';
+const GUEST_ADD_TO_CART = 'GUEST_ADD_TO_CART';
+const USER_REMOVE_FROM_CART = 'USER_REMOVE_FROM_CART';
+const GUEST_REMOVE_FROM_CART = 'GUEST_REMOVE_FROM_CART';
 
 // * INITIAL STATE
 const cartState = [];
 
 // * ACTION CREATORS
-const addToCart = product => {
+const addToUserCart = product => {
   return {
-    type: ADD_TO_CART,
+    type: USER_ADD_TO_CART,
     product,
   };
 };
 
-const removeFromCart = product => {
+const removeFromUserCart = product => {
   return {
-    type: REMOVE_FROM_CART,
+    type: USER_REMOVE_FROM_CART,
+    product,
+  };
+};
+const addToGuestCart = product => {
+  return {
+    type: GUEST_ADD_TO_CART,
+    product,
+  };
+};
+
+const removeFromGuestCart = product => {
+  return {
+    type: GUEST_REMOVE_FROM_CART,
     product,
   };
 };
 
 // THUNK CREATORS
-export const addItemToCart = (userId, product) => dispatch => {
+export const addItemToUserCart = (userId, product) => dispatch => {
+  const {price, quantity} = product;
   if (userId) {
-    axios.put(`/api/cart/${userId}`, product).then(cartItem => {
-      dispatch(addToCart(cartItem));
-    });
+    axios.put(`/api/orders/cart/${userId}`, {price, quantity}).then(cartItem => {
+      dispatch(addToUserCart(cartItem));
+    })
+    .catch(err => console.error(err));
   }
 };
 
@@ -35,7 +52,7 @@ export const addItemToCart = (userId, product) => dispatch => {
 
 export default function reducer(state = cartState, action) {
   switch (action.type) {
-    case ADD_TO_CART:
+    case USER_ADD_TO_CART:
       return [...state, action.product];
     default:
       return state;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { handleUserSubmit } from '../store';
+import { addItemToUserCart } from '../store';
 
 const SingleProduct = props => {
   const { products } = props.products;
@@ -36,7 +36,10 @@ const SingleProduct = props => {
           </div>
           <h2>Rating: {product.rating}</h2>
         </div>
-        <button type="submit" onSubmit={() => props.handleUserSubmit(user.id, product)}>
+        <button
+          type="button"
+          onClick={() => props.addItemToUserCart(props.user.id, product)}
+        >
           Add To Cart
         </button>
       </div>
@@ -44,17 +47,15 @@ const SingleProduct = props => {
   );
 };
 
-
-
 const mapToProps = state => {
   console.log('MAPTOPROPS', state);
   return {
     products: state.products,
-    user: state.user
+    user: state.user,
   };
 };
 
-const mapDispatchToProps = { handleUserSubmit };
+const mapDispatchToProps = { addItemToUserCart };
 
 const SingleProductContainer = connect(
   mapToProps,
@@ -63,10 +64,8 @@ const SingleProductContainer = connect(
 
 export default SingleProductContainer;
 
-SingleProduct.propTypes = {
-  product: PropTypes.object,
-};
-
 /**
  * PROP TYPES
  */
+
+SingleProduct.propTypes = {};
