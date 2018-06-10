@@ -11,7 +11,7 @@ export const Homepage = props => {
   const { categories } = props;
   const { handleCategoryClick, handleAllProductsClick } = props;
 
-  // Assigns all products as products variable if category is not chosen otherwise it assigns all the products with the chosen category
+  // Filters all the products by category if category is chosen otherwise it keeps all products
   let products = !props.chosenCategory
     ? props.products
     : props.products.filter(product =>
@@ -100,7 +100,6 @@ export const Homepage = props => {
  */
 
 const mapState = state => {
-  // console.log("STATE", state);
   return {
     chosenCategory: state.categories.chosenCategory,
     products: state.products.products,

@@ -6,11 +6,13 @@ import { fetchSingleProduct } from "../store";
 const SingleProduct = props => {
   const { products } = props.products;
   const paramId = Number(props.match.params.id);
+  // Finds single product among all the products
   const product = products.length
     ? products.filter(product => {
         return product.id === paramId;
       })[0]
     : [];
+  // Limits the quantity selection if the inventory is less than 10
   const count1To10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   let quantity =
     product.inventory && product.inventory > 10
@@ -51,6 +53,7 @@ const SingleProduct = props => {
         </div>
         <div>
           {product.inventory ? (
+            //renders the amount left in the inventory if less than 10
             product.inventory < 10 ? (
               <h2 className="font-color-red">
                 Only {product.inventory} left in stock
@@ -59,6 +62,7 @@ const SingleProduct = props => {
               <h2 className="font-color-green">In Stock</h2>
             )
           ) : (
+            //renders if inventory quantity is 0
             <h2 className="font-color-red">
               This item is no longer available from the seller you selected.
             </h2>
@@ -78,18 +82,7 @@ const mapToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onLoad: function() {
-      dispatch(fetchSingleProduct(ownProps.params.match.id));
-    }
-  };
-};
-
-const SingleProductContainer = connect(
-  mapToProps,
-  mapDispatchToProps
-)(SingleProduct);
+const SingleProductContainer = connect(mapToProps)(SingleProduct);
 
 export default SingleProductContainer;
 
