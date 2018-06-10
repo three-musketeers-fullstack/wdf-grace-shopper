@@ -1,22 +1,22 @@
-import axios from "axios";
-import history from "../history";
+import axios from 'axios';
+import history from '../history';
 
 //ACTION TYPES
-const GET_CATEGORIES = "GET_CATEGORIES";
+const GET_CATEGORIES = 'GET_CATEGORIES';
 
 // INITIAL STATE
-const categoriesState = []
+const categoriesState = [];
 
 // ACTION CREATORS
 const getAllCategories = categories => ({
   type: GET_CATEGORIES,
-  categories
+  categories,
 });
 
 // THUNK CREATORS
 export const fetchAllCategories = () => dispatch =>
   axios
-    .get("/api/categories")
+    .get('/api/categories')
     .then(res => dispatch(getAllCategories(res.data)))
     .catch(err => console.log(err));
 

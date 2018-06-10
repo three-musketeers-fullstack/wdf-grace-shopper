@@ -23,14 +23,17 @@ router.get('/:userId', (req, res, next) => {
 });
 // instantiate/update cart upon adding product
 
-router.put('/:userId', (req, res, next) => {
+router.put('/cart/:userId', (req, res, next) => {
   Order.findOrCreate({ where: { userId: req.params.userId } })
     .then(result => result[0])
     .then(order => {
-      order.addProducts(req.body.productId, {
+      return order.addProduct(req.body.productId, {
         through: { quantity: req.body.quantity },
       });
-      res.send(order);
+    })
+    .then(updateOrder => {
+      console.log(updateOrder);
+      res.send(updateOrder);
     })
     .catch(next);
 });
@@ -48,11 +51,6 @@ router.put('/:userId/checkout', (req, res, next) => {
     OrderProduct.update(
       { price: filledOrder.total },
       { where: { orderId: filledOrder.id } }
-    )
-    .then(result => res.status(203).send(result))
+    ).then(result => res.status(203).send(result));
   });
 });
-
-// router.put('/:orderId',(req,res,next) => {
-//     Order
-// })

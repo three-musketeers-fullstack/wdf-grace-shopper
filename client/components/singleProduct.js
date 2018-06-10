@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { fetchSingleProduct } from "../store";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { handleUserSubmit } from '../store';
 
 const SingleProduct = props => {
   const { products } = props.products;
@@ -18,11 +18,9 @@ const SingleProduct = props => {
         <h1>{product.title}</h1>
         <img src={product.imageUrl} />
         <h3>
-          Category:{" "}
+          Category:{' '}
           {product.categories &&
-            product.categories
-              .map(category => category.name)
-              .join(", ")}
+            product.categories.map(category => category.name).join(', ')}
         </h3>
       </div>
       <div>
@@ -38,27 +36,25 @@ const SingleProduct = props => {
           </div>
           <h2>Rating: {product.rating}</h2>
         </div>
-        <button>Add To Cart</button>
+        <button type="submit" onSubmit={() => props.handleUserSubmit(user.id, product)}>
+          Add To Cart
+        </button>
       </div>
     </div>
   );
 };
 
+
+
 const mapToProps = state => {
-  console.log("MAPTOPROPS", state);
+  console.log('MAPTOPROPS', state);
   return {
-    products: state.products
+    products: state.products,
+    user: state.user
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log("MAPDISPATCH TO PROPS>>>>>", ownProps);
-  return {
-    onLoad: function() {
-      dispatch(fetchSingleProduct(ownProps.params.match.id));
-    }
-  };
-};
+const mapDispatchToProps = { handleUserSubmit };
 
 const SingleProductContainer = connect(
   mapToProps,
@@ -68,7 +64,7 @@ const SingleProductContainer = connect(
 export default SingleProductContainer;
 
 SingleProduct.propTypes = {
-  product: PropTypes.object
+  product: PropTypes.object,
 };
 
 /**
