@@ -4,6 +4,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 
+const localCartAmount = new Set(
+  JSON.parse(localStorage.getItem("cart")).map(product => product.productId)
+);
+
+console.log(new Set(JSON.parse(localStorage.getItem('cart'))))
+
 const Navbar = ({ handleClick, isLoggedIn, email }) => (
   <div className="header-style">
     <div>
@@ -16,9 +22,15 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
       {/* <button></button> */}
     </div>
     {/* displays text before @ in the navbar */}
-    {isLoggedIn ? <h3 className="color-white">Hello, {email.slice(0, email.search('@'))}</h3> : <div />}
+    {isLoggedIn ? (
+      <h3 className="color-white">
+        Hello, {email.slice(0, email.search("@"))}
+      </h3>
+    ) : (
+      <div />
+    )}
 
-    <nav className="flex-row">
+    <nav className="flex-row align-items-center">
       {isLoggedIn ? (
         <div className="flex-row align-items-center">
           {/* The navbar will show these links after you log in */}
@@ -51,7 +63,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
             src="/images/shopping-cart.png"
           />
         </Link>
-        <h2 className="font-size-1-05em color-white">0</h2>
+        <h2 className="font-size-1-05em color-white">{localCartAmount}</h2>
       </div>
     </nav>
   </div>

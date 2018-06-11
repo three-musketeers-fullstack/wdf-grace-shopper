@@ -12,12 +12,6 @@ const SingleProduct = props => {
         return product.id === paramId;
       })[0]
     : [];
-  // Limits the quantity selection if the inventory is less than 10
-  const count1To10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let quantity =
-    product.inventory && product.inventory > 10
-      ? count1To10
-      : count1To10.slice(0, product.inventory);
 
   return (
     <div className="flex-row margin-50px">
@@ -41,7 +35,13 @@ const SingleProduct = props => {
           <div className="flex-row align-items-center">
             <h2>Quantity:</h2>
             <select className="quantity-style">
-              {quantity.map(num => <option key={num}>{num}</option>)}
+              {product.inventory > 10
+                ? new Array(10)
+                    .fill("bananas")
+                    .map((n, indx) => <option key={indx++}>{indx++}</option>)
+                : new Array(product.inventory)
+                    .fill("bananas")
+                    .map((n, indx) => <option key={indx++}>{indx++}</option>)}
             </select>
           </div>
           <h3>{product.rating} stars</h3>
@@ -64,7 +64,7 @@ const SingleProduct = props => {
           )}
         </div>
         <button
-        className="add-button-style align-self-center"
+          className="add-button-style align-self-center"
           type="button"
           onClick={() => {
             const reqBody = [
@@ -85,7 +85,7 @@ const SingleProduct = props => {
                 localStorage.setItem("cart", JSON.stringify(cart));
               }
             } else {
-              props.addItemToUserCart(props.user.id, reqBody);
+              props.addItemToUserCart(props.user.id, reqBody[0]);
             }
           }}
         >
@@ -96,14 +96,11 @@ const SingleProduct = props => {
   );
 };
 
-const mapToProps = state => {
-  console.log("MAPTOPROPS", state);
-  return {
-    products: state.products,
-    user: state.user,
-    cart: state.cart
-  };
-};
+const mapToProps = state => ({
+  products: state.products,
+  user: state.user,
+  cart: state.cart
+});
 
 const mapDispatchToProps = { addItemToUserCart };
 
