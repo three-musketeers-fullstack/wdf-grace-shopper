@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addItemToUserCart } from '../store';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addItemToUserCart } from "../store";
 
 const SingleProduct = props => {
   const { products } = props.products;
@@ -27,9 +27,9 @@ const SingleProduct = props => {
           <img className="img-single-product" src={product.imageUrl} />
         </div>
         <h2>
-          Category:{' '}
+          Category:{" "}
           {product.categories &&
-            product.categories.map(category => category.name).join(', ')}
+            product.categories.map(category => category.name).join(", ")}
         </h2>
       </div>
       <div className=" width-55vw flex-column margin-10px-20px just-cont-space-evenly">
@@ -64,22 +64,25 @@ const SingleProduct = props => {
           )}
         </div>
         <button
+        className="add-button-style align-self-center"
           type="button"
           onClick={() => {
-            const reqBody = [{
-              userId: props.user.id,
-              productId: product.id,
-              quantity: product.inventory,
-            }];
+            const reqBody = [
+              {
+                userId: props.user.id,
+                productId: product.id,
+                quantity: product.inventory
+              }
+            ];
             if (!props.user.id) {
               let cart = [];
               if (!localStorage.cart) {
                 cart = reqBody;
-                localStorage.setItem('cart', JSON.stringify(cart));
+                localStorage.setItem("cart", JSON.stringify(cart));
               } else {
-                let oldCart = JSON.parse(localStorage.getItem('cart'));
+                let oldCart = JSON.parse(localStorage.getItem("cart"));
                 cart = oldCart.concat(reqBody);
-                localStorage.setItem('cart', JSON.stringify(cart));
+                localStorage.setItem("cart", JSON.stringify(cart));
               }
             } else {
               props.addItemToUserCart(props.user.id, reqBody);
@@ -94,11 +97,11 @@ const SingleProduct = props => {
 };
 
 const mapToProps = state => {
-  console.log('MAPTOPROPS', state);
+  console.log("MAPTOPROPS", state);
   return {
     products: state.products,
     user: state.user,
-    cart: state.cart,
+    cart: state.cart
   };
 };
 
