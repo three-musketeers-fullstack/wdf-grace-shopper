@@ -68,8 +68,8 @@ const Cart = props => {
 
                 {product.inventory ? (
                   <div>
-                    <h3 className="price-red-color">Price</h3>
-                    <h1 className="font-color-red">{product.price}</h1>{" "}
+                    <h3>Price</h3>
+                    <h1 className="price-red-color font-color-red">{product.price}</h1>{" "}
                   </div>
                 ) : (
                   <div />

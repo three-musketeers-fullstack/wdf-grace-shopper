@@ -48,12 +48,9 @@ body {
 }
 
 .delete-button-style {
-  width: 7em;
-  font-size: 30px;
-  padding: 10px;
+  padding: 5px;
   color: white;
-  border: inset 2px #31708f;
-  border-radius: 10px;
+  border-radius: 5px;
   background-image: linear-gradient(
     45deg,
     rgb(88, 25, 25) 40%,
@@ -65,7 +62,7 @@ body {
 
 .delete-button-style:hover {
   color: #202b47;
-  background-image: linear-gradient(45deg, #ddf1ff, #42a7d4);
+  background-image: linear-gradient(45deg, #ffffff, #d44242a6);
 }
 
 .flex-column {
@@ -108,6 +105,11 @@ form div {
 
 .font-size-1em {
   font-size: 1em;
+}
+
+#google-icon {
+  width: 50px;
+  height: 50px;
 }
 
 .header-style {
@@ -189,6 +191,66 @@ label {
   display: block;
 }
 
+#login-button-style {
+  width: 35%;
+  padding: 10px;
+  border-radius: 25px;
+  font-size: 1.3em;
+  transition: 0.4s;
+}
+
+#login-button-style:hover {
+  color: white;
+  background: -webkit-linear-gradient(top, #b224ef, #7579ff);
+}
+
+#login-style {
+  display: flex;
+  margin: 30px;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 35px;
+  background: #9152f8;
+  background: -webkit-linear-gradient(top, #7579ff, #b224ef);
+}
+
+#login-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: white;
+  padding: 25px;
+}
+
+.login-input {
+  outline: none;
+  width: 21em;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 16px;
+  color: white;
+  line-height: 1.2;
+  display: block;
+  height: 45px;
+  background: transparent;
+}
+
+.login-input::placeholder {
+  color: white;
+}
+
+#login-title {
+  font-size: 30px;
+  color: #fff;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .margin-15px-20px {
   margin: 15px 20px;
 }
@@ -211,6 +273,10 @@ label {
 
 .margin-20px-50px {
   margin: 20px 50px;
+}
+
+.margin-30px-sides {
+  margin: 0px 30px;
 }
 
 .margin-80px-sides {
@@ -266,6 +332,10 @@ nav a {
   width: calc(35vw - 7em);
   border-right: inset 4px #dcf3ff;
   background-image: linear-gradient(136deg, #ffffff, #89cdeab8);
+}
+
+.warning {
+  color: #ff0000ab;
 }
 
 .width-35vw {
