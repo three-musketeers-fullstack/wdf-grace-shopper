@@ -77,15 +77,15 @@ const id = () => Math.floor(Math.random() * products.length) + 1;
 const users = [
   {
     email: "omri@omri.omri",
-    password: 123
+    password: "123"
   },
   {
     email: "jon@web.dev",
-    password: 111
+    password: "111"
   },
   {
     email: "cubelover@corner.three",
-    password: 3927
+    password: "3927"
   }
 ];
 
@@ -94,7 +94,7 @@ const seed = () =>
 
   Promise.all(products.map(product => Product.create(product)))
   .then(Promise.all(categories.map(category => Category.create(category))))
-
+  .then(Promise.all(users.map(user => User.create(user))))
 const main = () => {
   console.log("Syncing db...");
   db.sync({ force: true })
