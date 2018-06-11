@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Login, Signup, UserHome, Cart, SingleProduct, Homepage } from "./components";
+import { Login, Signup, UserHome, Cart, SingleProduct, Homepage, Stripe } from "./components";
 import { me, fetchAllProducts, fetchAllCategories } from "./store";
 
 /**
- * COMPONENT
- */
+ * COMPONE */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -24,6 +23,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/cart" component={Cart} />
+        <Route exact path='/checkout' component={Stripe}/>
         
         {isLoggedIn && (
           <Switch>

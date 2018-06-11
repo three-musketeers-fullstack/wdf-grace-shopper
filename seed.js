@@ -99,7 +99,7 @@ const main = () => {
   console.log("Syncing db...");
   db.sync({ force: true })
     .then(() => {
-      console.log("Seeding databse...");
+      console.log("Seeding database...");
       return seed();
     })
     .catch(err => {

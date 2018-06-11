@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Product = require('./product')
 
 const OrderProduct = db.define('order-product', {
     quantity: {
@@ -12,4 +13,14 @@ const OrderProduct = db.define('order-product', {
     }
 })
 
+// // OrderProduct.afterCreate(lineItemInstance => {
+//     let price = priceHelper(id);
+//     this.setDataValues('price')
+// // })
+// //takes id from front end
+// function priceHelper(id){
+//     Product.findById(id)
+//     .then(product => product.price)
+//     .catch()
+// }
 module.exports = OrderProduct;

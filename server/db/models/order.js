@@ -19,6 +19,7 @@ const Order = db.define("order", {
   }
 });
 
+
 Order.beforeUpdate(orderInstance => {
   orderInstance.total = 0;
   orderInstance.getProducts().then(products => {

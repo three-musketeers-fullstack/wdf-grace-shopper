@@ -1,12 +1,24 @@
 const router = require("express").Router();
-const { OrderProduct } = require("../db/models");
+const { User, Product, Order } = require("../db/models");
+
 module.exports = router;
 
-// router.get("/", (req, res, next) => {
-//   OrderProduct.findAll({
-//     include: [{ all: true }]
-//   })
-//     .then(allCarts => res.send(allCarts))
-//     .catch(next);
-// });
-//needs work
+router.get("/:userId", (req, res, next) => {
+    User.findById(req.params.userId, {
+      include: [
+        {
+          model: Order,
+          include: [
+            {
+              all: true
+            }
+          ]
+        }
+      ]
+    }).then(info =>console.log('>>>>>>>>>>>',info.orders[0]))
+      
+    //   .then(user => res.send(user))
+      
+      .catch(next);
+  });
+  

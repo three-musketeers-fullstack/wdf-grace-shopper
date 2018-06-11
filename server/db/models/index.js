@@ -3,6 +3,7 @@ const Product = require("./product");
 const Order = require("./order");
 const Category = require("./categories");
 const OrderProduct = require('./order-product');
+const Review = require('./reviews');
 
 Order.belongsTo(User);
 User.hasMany(Order);
@@ -22,6 +23,11 @@ Product.belongsToMany(Order, { through: OrderProduct });
 
 Category.belongsToMany(Product, { through:  'category-product'});
 Product.belongsToMany(Category, { through: 'category-product' });
+
+Review.belongsTo(User, { as: 'user'});
+Review.belongsTo(Product, {as: 'product'});
+Product.hasMany(Review, { as: 'review'});
+
 //Product.setCategory('category name') // set a category to a product
 // Categories.getProducts() // gets all the products of a specific category
 
@@ -31,6 +37,7 @@ module.exports = {
   Product,
   Order,
   Category,
-  OrderProduct
+  OrderProduct,
+  Review
 };
 //OrderProduct can possibly be removed from exports
