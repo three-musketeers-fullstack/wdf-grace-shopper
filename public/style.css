@@ -47,10 +47,25 @@ body {
   color: white;
 }
 
-.shooping-cart-styling {
-  height: calc(16vw - 10em);
-  filter: invert(100%);
-  transition: color 1s, background-color 0.5s;
+.delete-button-style {
+  width: 7em;
+  font-size: 30px;
+  padding: 10px;
+  color: white;
+  border: inset 2px #31708f;
+  border-radius: 10px;
+  background-image: linear-gradient(
+    45deg,
+    rgb(88, 25, 25) 40%,
+    rgb(255, 59, 0) 100%
+  );
+  box-shadow: 0px 0px 0px 1px rgb(199, 58, 40);
+  transition: color 1s, background-color 1.5s;
+}
+
+.delete-button-style:hover {
+  color: #202b47;
+  background-image: linear-gradient(45deg, #ddf1ff, #42a7d4);
 }
 
 .flex-column {
@@ -240,6 +255,11 @@ nav a {
   width: 5em;
 }
 
+.shooping-cart-styling {
+  height: calc(16vw - 10em);
+  filter: invert(100%);
+}
+
 #sidebar {
   display: flex;
   flex-direction: column;
@@ -259,8 +279,6 @@ nav a {
 .width-55vw {
   width: calc(50vw - 7em);
 }
-
-
 
 .width-20vw {
   width: 23%;

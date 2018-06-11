@@ -56,7 +56,7 @@ const SingleProduct = props => {
             //renders the amount left in the inventory if less than 10
             product.inventory < 10 ? (
               <h2 className="font-color-red">
-                Only {product.inventory} left in stock
+                Only {product.inventory} left in stock - order soon
               </h2>
             ) : (
               <h2 className="font-color-green">In Stock</h2>
