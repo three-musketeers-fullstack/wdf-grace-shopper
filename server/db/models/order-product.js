@@ -27,10 +27,13 @@ const OrderProduct = db.define("order-product", {
 //    return helperFunc(orderProdInstance);
 // });
 
-OrderProduct.afterCreate(orderInstance => {
-  console.log("gothere<><><>");
-  orderInstance.price += 100;
-});
+const priceChange = function(order){
+  order.price += 100;
+}
+
+OrderProduct.beforeCreate(priceChange);
+OrderProduct.beforeUpdate(priceChange);
+
 module.exports = OrderProduct;
 
 //const { productId } = orderProdInstance;
