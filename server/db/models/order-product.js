@@ -13,7 +13,6 @@ const OrderProduct = db.define("order-product", {
   }
 });
 
-
 // const helperFunc = orderProdInstance => {
 //     console.log('we got here!!<><><><>')
 //     const { productId } = orderProdInstance;
@@ -29,12 +28,10 @@ const OrderProduct = db.define("order-product", {
 // });
 
 OrderProduct.afterCreate(orderInstance => {
-    console.log('gothere<><><>')
-    orderInstance.price = 100;
-})
+  console.log("gothere<><><>");
+  orderInstance.price += 100;
+});
 module.exports = OrderProduct;
-
-
 
 //const { productId } = orderProdInstance;
 //   let product = Product.findById(productId);
@@ -45,7 +42,7 @@ module.exports = OrderProduct;
 //         const { price } = prodAndOrderArr[0];
 //         const { id } = prodAndOrderArr[0];
 //         const { quanity } = prodAndOrderArr[1];
-        
+
 //         prodAndOrderArr[1].update({ price: price * quanity}, {
 //             where:{
 //                 productId: id
