@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Order, User, OrderProduct } = require("../db/models");
+const { Order, User } = require("../db/models");
 module.exports = router;
 
 router.get("/", (req, res, next) => {
@@ -27,12 +27,12 @@ router.put('/cart/:userId', (req, res, next) => {
   Order.findOrCreate({ where: { userId: req.params.userId } })
     .then(result => result[0])
     .then(order => {
-      return order.addProducts(req.body.productId, {
+      return order.addProduct(req.body.productId, {
         through: { quantity: req.body.quantity },
       });
     })
     .then(updateOrder => {
-      console.log(updateOrder);
+      // console.log('orderProduct:', updateOrder[0].dataValues);
       res.send(updateOrder);
     })
     .catch(next);

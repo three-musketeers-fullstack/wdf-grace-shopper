@@ -9,8 +9,8 @@ const OrderProduct = db.define("order-product", {
   },
   price: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
-  }
+    defaultValue: 0,
+    }
 });
 
 
@@ -28,10 +28,17 @@ const OrderProduct = db.define("order-product", {
 //    return helperFunc(orderProdInstance);
 // });
 
-OrderProduct.afterCreate(orderInstance => {
-    console.log('gothere<><><>')
-    orderInstance.price = 100;
-})
+
+
+const addHundo = arr => {
+  const thing = arr[0].setDataValue('price', 1000);
+  console.log(thing);
+}
+
+OrderProduct.beforeBulkCreate(addHundo);
+OrderProduct.beforeBulkUpdate(addHundo);
+
+
 module.exports = OrderProduct;
 
 
@@ -45,7 +52,7 @@ module.exports = OrderProduct;
 //         const { price } = prodAndOrderArr[0];
 //         const { id } = prodAndOrderArr[0];
 //         const { quanity } = prodAndOrderArr[1];
-        
+
 //         prodAndOrderArr[1].update({ price: price * quanity}, {
 //             where:{
 //                 productId: id
