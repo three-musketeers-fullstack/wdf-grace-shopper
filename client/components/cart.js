@@ -63,13 +63,13 @@ const Cart = props => {
                       selected.
                     </h3>
                   )}
-                  <button>Delete from Cart</button>
+                  <button className="delete-button-style">Delete from Cart</button>
                 </div>
 
                 {product.inventory ? (
                   <div>
                     <h3>Price</h3>
-                    <h1 className="font-color-red">{product.price}</h1>{" "}
+                    <h1 className="price-red-color font-color-red">{product.price}</h1>{" "}
                   </div>
                 ) : (
                   <div />
@@ -79,7 +79,7 @@ const Cart = props => {
                 <div className="margin-80px-sides">
                   <div>
                     <h3>Quantity</h3>
-                    <select>
+                    <select className="quantity-style">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -96,6 +96,13 @@ const Cart = props => {
           </div>
         );
       })}
+      <div className="flex-row just-cont-space-evenly margin-15px-10px">
+        <button className="add-button-style width-35vw">Proceed to Checkout</button>
+        <div className="flex-row align-items-center">
+          <h1>Subtotal:</h1>
+          <h1 className="price-red-color"> $1200</h1>
+        </div>
+      </div>
     </div>
   );
 };
