@@ -1,7 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { fetchSingleProduct } from "../store";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addItemToUserCart } from '../store';
+import { parse } from 'url';
 
 const SingleProduct = props => {
   const { products } = props.products;
@@ -27,20 +28,15 @@ const SingleProduct = props => {
           <img className="img-single-product" src={product.imageUrl} />
         </div>
         <h2>
-          Category:{" "}
+          Category:{' '}
           {product.categories &&
-            product.categories.map(category => category.name).join(", ")}
+            product.categories.map(category => category.name).join(', ')}
         </h2>
       </div>
-
       <div className=" width-55vw flex-column margin-10px-20px just-cont-space-evenly">
         <p className="font-size-2em">{product.description}</p>
         <div className="flex-row just-cont-space-around  align-items-center">
-          <h2
-            className=" 
-              font-size-2em
-              price-red-color"
-          >
+          <h2 className="font-size-2em price-red-color">
             ${(product.price / 100).toFixed(2)}
           </h2>
           <div className="flex-row align-items-center">
@@ -68,7 +64,35 @@ const SingleProduct = props => {
             </h2>
           )}
         </div>
-        <button className=" align-self-center add-button-style">
+        <button
+          type="button"
+          onClick={() => {
+            // const quantOption = document.getElementByTagName('option:selected');
+            const reqBody = {
+              userId: props.user.id,
+              productId: product.id,
+              quantity: product.inventory,
+            };
+            if (!props.user.id) {
+              let cart = [];
+              if (!localStorage.cart) {
+                console.log('creating local cart');
+                localStorage.setItem('cart', JSON.stringify(reqBody));
+              } else {
+                console.log('local cart exists');
+                let oldCart = JSON.parse(localStorage.getItem('cart'));
+                console.log('old cart:', oldCart);
+                cart.push(oldCart);
+                cart.push(reqBody);
+                localStorage.setItem('cart', JSON.stringify(cart));
+              }
+              console.log('local storage //////');
+              console.log(localStorage.getItem('cart'));
+            } else {
+              props.addItemToUserCart(props.user.id, reqBody);
+            }
+          }}
+        >
           Add To Cart
         </button>
       </div>
@@ -77,19 +101,25 @@ const SingleProduct = props => {
 };
 
 const mapToProps = state => {
+  console.log('MAPTOPROPS', state);
   return {
-    products: state.products
+    products: state.products,
+    user: state.user,
+    cart: state.cart,
   };
 };
 
-const SingleProductContainer = connect(mapToProps)(SingleProduct);
+const mapDispatchToProps = { addItemToUserCart };
+
+const SingleProductContainer = connect(
+  mapToProps,
+  mapDispatchToProps
+)(SingleProduct);
 
 export default SingleProductContainer;
-
-SingleProduct.propTypes = {
-  product: PropTypes.object
-};
 
 /**
  * PROP TYPES
  */
+
+SingleProduct.propTypes = {};

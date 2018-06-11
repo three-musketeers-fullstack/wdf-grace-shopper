@@ -35,6 +35,7 @@ const dummyData = [
 ];
 
 const Cart = props => {
+  const cart = localStorage.getItem('cart')
   return (
     <div>
       <h1>Shopping Cart</h1>

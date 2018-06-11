@@ -23,12 +23,17 @@ router.get("/:userId", (req, res, next) => {
 });
 // instantiate/update cart upon adding product
 
-router.put("/:userId", (req, res, next) => {
+router.put('/cart/:userId', (req, res, next) => {
   Order.findOrCreate({ where: { userId: req.params.userId } })
     .then(result => result[0])
     .then(order => {
-      order.addProducts(req.body.productId);
-      res.send(order);
+      return order.addProducts(req.body.productId, {
+        through: { quantity: req.body.quantity },
+      });
+    })
+    .then(updateOrder => {
+      console.log(updateOrder);
+      res.send(updateOrder);
     })
     .catch(next);
 });
@@ -42,9 +47,14 @@ router.put("/:userId/checkout", (req, res, next) => {
     {
       where: { userId: req.params.userId }
     }
-  );
+  ).then(filledOrder => {
+    OrderProduct.update(
+      { price: filledOrder.total },
+      { where: { orderId: filledOrder.id } }
+    ).then(result => res.status(203).send(result));
+  });
 });
-//need to lock in price 
+//need to lock in price
 
 
 // router.put('/:orderId',(req,res,next) => {
