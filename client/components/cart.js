@@ -33,9 +33,6 @@ const dummyData = [
 
 const Cart = props => {
   const cart = localStorage.getItem('cart')
-  for (let k in cart) {
-    if (cart[k]) console.log(cart[k]);
-  }
   return (
     <div>
       <h1>Shopping Cart</h1>
