@@ -52,7 +52,6 @@ const Cart = props => {
           localCartProductId => localCartProductId === product.id
         )
       );
-  console.log(products);
   return (
     <div>
       <h1>Shopping Cart</h1>
