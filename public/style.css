@@ -193,6 +193,10 @@ label {
   margin: 50px;
 }
 
+.margin-50px-sides {
+  margin: 0px 50px;
+}
+
 .margin-80px-sides {
   margin: 0px 80px;
 }
