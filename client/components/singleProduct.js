@@ -51,19 +51,19 @@ const SingleProduct = props => {
           </div>
           <h3>{product.rating} stars</h3>
         </div>
-        <div>
+        <div className="margin-20px-50px">
           {product.inventory ? (
             //renders the amount left in the inventory if less than 10
             product.inventory < 10 ? (
-              <h2 className="font-color-red margin-50px-sides">
+              <h2 className="font-color-red">
                 Only {product.inventory} left in stock
               </h2>
             ) : (
-              <h2 className="font-color-green margin-50px-sides">In Stock</h2>
+              <h2 className="font-color-green">In Stock</h2>
             )
           ) : (
             //renders if inventory quantity is 0
-            <h2 className="font-color-red margin-50px-sides">
+            <h2 className="font-color-red">
               This item is no longer available from the seller you selected.
             </h2>
           )}

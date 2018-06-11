@@ -130,6 +130,7 @@ img {
 }
 
 .img-single-product {
+  height: calc(49vw - 18em);
   border-radius: 8px;
   margin: 20px;
 }
@@ -193,8 +194,8 @@ label {
   margin: 50px;
 }
 
-.margin-50px-sides {
-  margin: 0px 50px;
+.margin-20px-50px {
+  margin: 20px 50px;
 }
 
 .margin-80px-sides {
@@ -258,6 +259,8 @@ nav a {
 .width-55vw {
   width: calc(50vw - 7em);
 }
+
+
 
 .width-20vw {
   width: 23%;
