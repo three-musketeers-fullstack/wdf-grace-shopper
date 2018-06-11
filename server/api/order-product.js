@@ -1,12 +1,13 @@
 const router = require("express").Router();
 const { OrderProduct } = require("../db/models");
 module.exports = router;
-
-// router.get("/", (req, res, next) => {
-//   OrderProduct.findAll({
-//     include: [{ all: true }]
-//   })
-//     .then(allCarts => res.send(allCarts))
-//     .catch(next);
-// });
+//cart
+router.get("/:orderId", (req, res, next) => {
+ 
+  OrderProduct.findOne({
+      where: { orderId: req.params.orderId}
+  })
+    .then(cart => res.send(cart))
+    .catch(next);
+});
 //needs work
