@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, email }) => (
   <div
     className="header-style"
   >
@@ -15,8 +15,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     </div>
     <div>
       <input className="input-style" placeholder="Search for Items" />
-      <button></button>
+      {/* <button></button> */}
     </div>
+ 
+      {isLoggedIn ? (<h3 className="color-white">Hello, {email}</h3>) : (<div></div>)}
+ 
     <nav className="flex-row">
       {isLoggedIn ? (
         <div className="flex-row align-items-center">
@@ -53,6 +56,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = state => {
   return {
+    email: state.user.email,
     isLoggedIn: !!state.user.id
   };
 };

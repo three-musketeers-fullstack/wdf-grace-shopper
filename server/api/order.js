@@ -1,8 +1,8 @@
-const router = require('express').Router();
-const { Order, User, OrderProduct } = require('../db/models');
+const router = require("express").Router();
+const { Order, User } = require("../db/models");
 module.exports = router;
 
-router.get('/', (req, res, next) => {
+router.get("/", (req, res, next) => {
   Order.findAll()
     .then(orders => res.json(orders))
     .catch(next);
@@ -10,12 +10,12 @@ router.get('/', (req, res, next) => {
 
 //To get all previous purchases for User
 
-router.get('/:userId', (req, res, next) => {
+router.get("/:userId", (req, res, next) => {
   Order.findAll({
     where: {
       userId: req.params.id,
-      isPurchased: true,
-    },
+      isPurchased: true
+    }
   })
     .then(result => result.data)
     .then(orderHistory => res.send(orderHistory))
@@ -39,13 +39,13 @@ router.put('/cart/:userId', (req, res, next) => {
 });
 
 //TO change is purchased in cart
-router.put('/:userId/checkout', (req, res, next) => {
+router.put("/:userId/checkout", (req, res, next) => {
   Order.update(
     {
-      isPurchased: true,
+      isPurchased: true
     },
     {
-      where: { userId: req.params.userId },
+      where: { userId: req.params.userId }
     }
   ).then(filledOrder => {
     OrderProduct.update(
@@ -54,3 +54,9 @@ router.put('/:userId/checkout', (req, res, next) => {
     ).then(result => res.status(203).send(result));
   });
 });
+//need to lock in price
+
+
+// router.put('/:orderId',(req,res,next) => {
+//     Order
+// })
