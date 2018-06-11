@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItemToUserCart } from '../store';
+import { parse } from 'url';
 
 const SingleProduct = props => {
   const { products } = props.products;
@@ -41,8 +42,31 @@ const SingleProduct = props => {
           type="button"
           onClick={() => {
             // const quantOption = document.getElementByTagName('option:selected');
-            const reqBody = {userId: props.user.id, productId: product.id, quantity: product.inventory};
-            props.addItemToUserCart(props.user.id, reqBody)
+            const reqBody = {
+              userId: props.user.id,
+              productId: product.id,
+              quantity: product.inventory,
+            };
+            if (!props.user.id) {
+              let cart = [];
+              if (!localStorage.cart) {
+                console.log('creating local cart')
+                cart.push(reqBody);
+                localStorage.setItem('cart', JSON.stringify(cart));
+              }
+              else {
+                console.log('local cart exists');
+                let oldCart = JSON.parse(localStorage.getItem('cart'));
+                console.log('old cart:', oldCart);
+                cart.push(oldCart);
+                cart.push(reqBody);
+                localStorage.setItem('cart', JSON.stringify(cart));
+              }
+              console.log('local storage //////');
+              console.log(localStorage.getItem('cart'));
+            } else {
+              props.addItemToUserCart(props.user.id, reqBody);
+            }
           }}
         >
           Add To Cart
@@ -57,6 +81,7 @@ const mapToProps = state => {
   return {
     products: state.products,
     user: state.user,
+    cart: state.cart,
   };
 };
 
