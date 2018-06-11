@@ -4,11 +4,12 @@ import history from "../history";
 // * ACTION TYPES
 const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";
 const GET_PRODUCTS = "GET_PRODUCTS";
+const GET_PRODUCTS_FROM_CART = 'GET_PRODUCTS_FROM_CART'
 
 // * INITIAL STATE
 const productsState = {
   products: [],
-  product: {}
+  cartProducts: []
 };
 
 // * ACTION CREATORS
