@@ -3,6 +3,7 @@ const Product = require("./product");
 const Order = require("./order");
 const Category = require("./categories");
 const OrderProduct = require('./order-product');
+const Review = require('./reviews');
 
 Order.belongsTo(User);
 User.hasMany(Order);
@@ -25,6 +26,9 @@ Product.belongsToMany(Category, { through: 'category-product' });
 //Product.setCategory('category name') // set a category to a product
 // Categories.getProducts() // gets all the products of a specific category
 
+Review.belongsTo(User, { as: 'user'});
+Review.belongsTo(Product, {as: 'product'});
+Product.hasMany(Review, { as: 'review'});
 
 module.exports = {
   User,
