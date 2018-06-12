@@ -15,19 +15,21 @@ const OrderHistory = props => {
       <div>
         {ordersByUser.length &&
           ordersByUser.map(order => {
+            let count = 1;
             return (
               <div key={order.id}>
                 {order.map(singleOrder => {
                   const {
                     userAddress,
                     products,
-                    id,
                     total,
-                    createdAt
+                    createdAt,
+                    id
                   } = singleOrder;
                   return (
                     <div key={id}>
                       <div>
+                        <h2>Order Number: {count++}</h2>
                         <h2>Sent To: {userAddress}</h2>
                         <div>
                           <h2> Total: {total}</h2>
