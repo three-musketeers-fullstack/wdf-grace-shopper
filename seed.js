@@ -37,13 +37,14 @@ const products = [
       "Only the finest chicken stock. For any stew that needs a hint of chicken.",
     price: 7240,
     inventory: 14050,
-    rating: 4
+    rating: 4,
+    imgUrl: 'https://cdn2.bigcommerce.com/server2000/9d454/products/5845/images/10165/22211p_1__44463.1302791171.500.750.jpg?c=2'
   },
   {
     title: "Ice Cube",
     description:
       'A sit down dinner with the star of "Are We There Yet?" and NWA (seriously).',
-    price: 450000,
+    price: 4500000,
     inventory: 6,
     rating: 4
   },
@@ -68,6 +69,14 @@ const products = [
       "One of the best gaming consoles of its generation. Easily the cubiest, as well.",
     price: 30075,
     inventory: 12,
+    rating: 4
+  },
+  {
+    title: "Fidget Cube",
+    description:
+      "An unusually addicting, high-quality desk toy designed to help you focus. Fidget at work, in class, and at home in style. Fidget Cube has six sides.",
+    price: 1234,
+    inventory: 8,
     rating: 4
   }
 ];
