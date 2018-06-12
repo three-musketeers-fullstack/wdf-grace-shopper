@@ -2,11 +2,18 @@ const router = require("express").Router();
 const { Order, User, Product } = require("../db/models");
 module.exports = router;
 
+//look for req.user.isAdmin to see if a user is admin
 router.get("/", (req, res, next) => {
   Order.findAll({
     include: [{model: Product}]
   })
-    .then(orders => res.json(orders))
+    .then(orders => {
+      if(!req.user || !req.user.isAdmin) {
+        res.status(401).send('Forrbidden');
+      }
+      else res.json(orders)
+      
+    })
     .catch(next);
 });
 
