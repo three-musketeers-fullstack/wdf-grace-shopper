@@ -21,7 +21,7 @@ const AuthForm = props => {
         >
           <div>
             <input
-              autofocus="autofocus"
+              autoFocus="autofocus"
               className="login-input"
               placeholder="email"
               name="email"

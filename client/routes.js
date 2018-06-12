@@ -51,11 +51,21 @@ const mapState = state => {
 };
 
 const mapDispatch = dispatch => {
+  //Creates an array with unique products ids and quantity from the local storage
+  const cache = {};
+
+  localStorage.getItem("cart") && Array.from(JSON.parse(localStorage.getItem("cart"))).forEach(
+    product => (cache[product.productId] = product)
+  );
+
+  const localCart = localStorage.getItem("cart") ? Object.values(cache) : [];
+
   return {
     loadInitialData() {
       dispatch(me());
       dispatch(fetchAllCategories());
       dispatch(fetchAllProducts());
+      dispatch(updateLocalCartState(localCart));
     }
   };
 };

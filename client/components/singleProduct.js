@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addItemToUserCart } from "../store";
+import { updateLocalCartState } from "../store";
+
+let quantity = 1;
 
 const SingleProduct = props => {
-  const { products } = props.products;
+  const { products, handleQuantity, history, updateLocalCart } = props;
   const paramId = Number(props.match.params.id);
   // Finds single product among all the products
   const product = products.length
@@ -12,12 +14,6 @@ const SingleProduct = props => {
         return product.id === paramId;
       })[0]
     : [];
-  // Limits the quantity selection if the inventory is less than 10
-  const count1To10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let quantity =
-    product.inventory && product.inventory > 10
-      ? count1To10
-      : count1To10.slice(0, product.inventory);
 
   return (
     <div className="flex-row margin-50px">
@@ -40,8 +36,14 @@ const SingleProduct = props => {
           </h2>
           <div className="flex-row align-items-center">
             <h2>Quantity:</h2>
-            <select className="quantity-style">
-              {quantity.map(num => <option key={num}>{num}</option>)}
+            <select onChange={handleQuantity} className="quantity-style">
+              {product.inventory > 10
+                ? new Array(10)
+                    .fill("bananas")
+                    .map((n, indx) => <option key={indx++}>{indx++}</option>)
+                : new Array(product.inventory)
+                    .fill("bananas")
+                    .map((n, indx) => <option key={indx++}>{indx++}</option>)}
             </select>
           </div>
           <h3>{product.rating} stars</h3>
@@ -64,29 +66,47 @@ const SingleProduct = props => {
           )}
         </div>
         <button
-        className="add-button-style align-self-center"
+          className="add-button-style align-self-center"
           type="button"
           onClick={() => {
+            //Body for local storage
             const reqBody = [
               {
-                userId: props.user.id,
                 productId: product.id,
-                quantity: product.inventory
+                quantity
               }
             ];
-            if (!props.user.id) {
-              let cart = [];
-              if (!localStorage.cart) {
-                cart = reqBody;
-                localStorage.setItem("cart", JSON.stringify(cart));
-              } else {
-                let oldCart = JSON.parse(localStorage.getItem("cart"));
-                cart = oldCart.concat(reqBody);
-                localStorage.setItem("cart", JSON.stringify(cart));
-              }
+            //if cart does not exists creates one
+            let cart = [];
+            if (!localStorage.cart) {
+              cart = reqBody;
+              //set cart as key and reqBody as the product with quantity
+              localStorage.setItem("cart", JSON.stringify(cart));
             } else {
-              props.addItemToUserCart(props.user.id, reqBody);
+              //updates n adds the local storage with new reqBody
+              let oldCart = JSON.parse(localStorage.getItem("cart"));
+              cart = oldCart.concat(reqBody);
+              localStorage.setItem("cart", JSON.stringify(cart));
             }
+
+            //Creates an array with unique products ids and quantity from the local storage
+            const cache = {};
+
+            Array.from(JSON.parse(localStorage.getItem("cart"))).forEach(
+              product => (cache[product.productId] = product)
+            );
+
+            const localCart = localStorage.getItem("cart")
+              ? Object.values(cache)
+              : [];
+
+            //it updates the redux store with local storage
+            updateLocalCart(localCart);
+
+            //Resets quantity back to one 
+            quantity = 1;
+
+            history.push("/");
           }}
         >
           Add To Cart
@@ -96,16 +116,17 @@ const SingleProduct = props => {
   );
 };
 
-const mapToProps = state => {
-  console.log("MAPTOPROPS", state);
-  return {
-    products: state.products,
-    user: state.user,
-    cart: state.cart
-  };
-};
+const mapToProps = state => ({
+  localCart: state.localCart,
+  products: state.products.products,
+  user: state.user,
+  cart: state.cart
+});
 
-const mapDispatchToProps = { addItemToUserCart };
+const mapDispatchToProps = dispatch => ({
+  handleQuantity: event => (quantity = event.target.value),
+  updateLocalCart: products => dispatch(updateLocalCartState(products))
+});
 
 const SingleProductContainer = connect(
   mapToProps,

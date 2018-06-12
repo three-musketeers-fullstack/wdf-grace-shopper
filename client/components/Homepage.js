@@ -8,17 +8,19 @@ import { updateChosenCategory, displayAllProducts } from "../store";
  */
 
 export const Homepage = props => {
-  const { categories } = props;
+  const { categories, filterWord } = props;
   const { handleCategoryClick, handleAllProductsClick } = props;
 
   // Filters all the products by category if category is chosen otherwise it keeps all products
-  let products = !props.chosenCategory
+  let products = (!props.chosenCategory
     ? props.products
     : props.products.filter(product =>
         product.categories.find(
           category => category.name === props.chosenCategory
         )
-      );
+      )).filter(product => product.title.toLowerCase().match(filterWord.toLowerCase()));
+
+
   return (
     <div className="flex-row">
       <div id="sidebar">
@@ -101,6 +103,7 @@ export const Homepage = props => {
 
 const mapState = state => {
   return {
+    filterWord: state.products.filterWord,
     chosenCategory: state.categories.chosenCategory,
     products: state.products.products,
     categories: state.categories.categories

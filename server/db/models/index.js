@@ -34,7 +34,5 @@ module.exports = {
   User,
   Product,
   Order,
-  Category,
-  OrderProduct
+  Category
 };
-//OrderProduct can possibly be removed from exports

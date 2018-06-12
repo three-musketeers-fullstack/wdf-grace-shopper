@@ -1,31 +1,22 @@
 import axios from "axios";
-import history from "../history";
+
 
 // * ACTION TYPES
-const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";
 const GET_PRODUCTS = "GET_PRODUCTS";
+const FILTER_WORD_CHANGE = 'FILTER_WORD_CHANGE';
 
 // * INITIAL STATE
 const productsState = {
   products: [],
-  product: {}
+  filterWord: ''
 };
 
 // * ACTION CREATORS
-const getSingleProduct = product => {
-  console.log("PRODUCT", product)
-  return { type: GET_SINGLE_PRODUCT, product };
-};
 const getAllProducts = products => ({ type: GET_PRODUCTS, products });
 
-//THUNK CREATORS
+const filterWordAction = word => ({ type: FILTER_WORD_CHANGE, word})
 
-//Fetch Single Product
-export const fetchSingleProduct = id => dispatch =>
-  axios
-    .get(`/api/products/${id}`)
-    .then(res => dispatch(getSingleProduct(res.data)))
-    .catch(err => console.log(err));
+//THUNK CREATORS
 
 //Fetch All Products
 export const fetchAllProducts = () => dispatch =>
@@ -34,14 +25,15 @@ export const fetchAllProducts = () => dispatch =>
     .then(res => dispatch(getAllProducts(res.data)))
     .catch(err => console.log(err));
 
+export const filterWordChange = word => dispatch => dispatch(filterWordAction(word))
+
 //REDUCER
 export default function(state = productsState, action) {
   switch (action.type) {
-    case GET_SINGLE_PRODUCT:
-      console.log("DATA", { ...state, product: action.product })
-      return { ...state, product: action.product }
     case GET_PRODUCTS:
       return { ...state, products: action.products };
+      case FILTER_WORD_CHANGE:
+      return { ...state, filterWord: action.word };
     default:
       return state;
   }
