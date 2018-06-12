@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 
 const Navbar = props => {
-  const { handleClick, isLoggedIn, email } = props;
+  const { handleClick, isLoggedIn, email, localCart } = props;
 
-  // const localCartAmount = new Set(
-  //   JSON.parse(localStorage.getItem("cart")).map(product => product.productId)
-  // );
+  const itemsQuantity = localCart ? localCart.length : 0;
 
   return (
     <div className="header-style">
@@ -64,7 +62,7 @@ const Navbar = props => {
               src="/images/shopping-cart.png"
             />
           </Link>
-          <h2 className="font-size-1-05em color-white">0</h2>
+          <h2 className="font-size-1-05em color-white">{itemsQuantity}</h2>
         </div>
       </nav>
     </div>
@@ -76,6 +74,7 @@ const Navbar = props => {
  */
 const mapState = state => {
   return {
+    localCart: state.localCart,
     email: state.user.email,
     isLoggedIn: !!state.user.id
   };

@@ -13,20 +13,9 @@ const productsState = {
 };
 
 // * ACTION CREATORS
-const getSingleProduct = product => {
-  console.log("PRODUCT", product)
-  return { type: GET_SINGLE_PRODUCT, product };
-};
 const getAllProducts = products => ({ type: GET_PRODUCTS, products });
 
 //THUNK CREATORS
-
-//Fetch Single Product
-export const fetchSingleProduct = id => dispatch =>
-  axios
-    .get(`/api/products/${id}`)
-    .then(res => dispatch(getSingleProduct(res.data)))
-    .catch(err => console.log(err));
 
 //Fetch All Products
 export const fetchAllProducts = () => dispatch =>
@@ -38,9 +27,6 @@ export const fetchAllProducts = () => dispatch =>
 //REDUCER
 export default function(state = productsState, action) {
   switch (action.type) {
-    case GET_SINGLE_PRODUCT:
-      console.log("DATA", { ...state, product: action.product })
-      return { ...state, product: action.product }
     case GET_PRODUCTS:
       return { ...state, products: action.products };
     default:
