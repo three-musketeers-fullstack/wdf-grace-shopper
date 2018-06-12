@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { updateLocalCartState } from '../store';
+import { updateLocalCartState, fetchProductTotal } from '../store';
 
 const Cart = props => {
-  const { localCart, handleDelete, handleQuantityChange } = props;
+  const { localCart, handleDelete, handleQuantityChange, handleTotal } = props;
 
   //Creates an array with unique products ids from the local storage
   const localCartProductsIds = localStorage.getItem('cart')
@@ -142,7 +142,10 @@ const Cart = props => {
         })}
       <div className="flex-row just-cont-space-evenly margin-15px-10px">
         <Link to="/checkout">
-          <button className="add-button-style width-35vw">
+          <button
+            onClick={() => handleTotal(total)}
+            className="add-button-style width-35vw"
+          >
             Proceed to Checkout
           </button>
         </Link>
@@ -159,6 +162,7 @@ const mapToProps = state => ({
   localCart: state.localCart,
   user: state.user,
   products: state.products.products,
+  prodTotal: state.products.prodTotal,
 });
 
 const mapDispatch = dispatch => ({
@@ -212,6 +216,10 @@ const mapDispatch = dispatch => ({
 
     //it updates the redux store with local storage
     dispatch(updateLocalCartState(localCart));
+  },
+
+  handleTotal: total => {
+    dispatch(fetchProductTotal(total));
   },
 });
 

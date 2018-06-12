@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
+import { fetchProductTotal } from '../store';
+import { Router } from 'react-router-dom';
 
 const STRIPE_PUBLISHABLE = 'pk_test_emv5YJOmcMRleAc2xmr7pZyR';
 const PAYMENT_SERVER_URL = 'http://localhost:8080/api/checkout';
@@ -15,7 +17,7 @@ const errorPayment = data => {
   alert('Payment Error');
 };
 
-const onToken = (total, description) => token =>
+const onToken = (total, description, history) => token =>
   axios
     .post(PAYMENT_SERVER_URL, {
       description,
@@ -23,25 +25,14 @@ const onToken = (total, description) => token =>
       currency: 'USD',
       amount: total,
     })
-    .then(successPayment)
+    .then(result => {
+      successPayment(result);
+      history.push('/');
+    })
     .catch(errorPayment);
 
 const Stripe = props => {
-  const { localCart, products } = props;
-  console.log('cart', localCart, 'products', products);
-  let totalArr = [];
-
-  localCart.forEach(cart => {
-    products.forEach(product => {
-      totalArr.push(cart.quantity * product.price);
-    });
-  });
-
-  let total =
-    totalArr &&
-    Array.from(new Set(totalArr)).reduce((total, price) => (total += price), 0);
-    console.log('This is cart total on checkout:', (total / 100).toFixed(2));
-    console.log('total array:', totalArr);
+  const { prodTotal, history } = props;
   return (
     <div>
       <form id="payment-form">
@@ -75,8 +66,11 @@ const Stripe = props => {
       <StripeCheckout
         name="Cube"
         description="The Marketplace for All Things Cubic"
-        amount={(total / 100).toFixed(2)}
-        token={onToken((total / 100).toFixed(2), 'The Marketplace for All Things Cubic')}
+        amount={prodTotal.toFixed(2)}
+        token={onToken(
+          Number(prodTotal.toFixed(2)),
+          'The Marketplace for All Things Cubic', history
+        )}
         currency="USD"
         stripeKey={STRIPE_PUBLISHABLE}
       />
@@ -88,6 +82,7 @@ const mapToProps = state => ({
   localCart: state.localCart,
   user: state.user,
   products: state.products.products,
+  prodTotal: state.products.prodTotal,
 });
 
 const StripeContainer = connect(mapToProps)(Stripe);
