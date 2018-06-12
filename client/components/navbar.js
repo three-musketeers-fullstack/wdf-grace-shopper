@@ -2,14 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../store";
+import { logout, filterWordChange } from "../store";
 
 const Navbar = props => {
-  const { handleClick, isLoggedIn, email } = props;
+  const { handleClick, handleSearchChange, isLoggedIn, email, localCart } = props;
 
-  // const localCartAmount = new Set(
-  //   JSON.parse(localStorage.getItem("cart")).map(product => product.productId)
-  // );
+  const itemsQuantity = localCart ? localCart.length : 0;
 
   return (
     <div className="header-style">
@@ -19,7 +17,7 @@ const Navbar = props => {
         </Link>
       </div>
       <div>
-        <input className="input-style" placeholder="Search for Items" />
+        <input onChange={handleSearchChange} className="input-style" placeholder="Search for Items" />
         {/* <button></button> */}
       </div>
       {/* displays text before @ in the navbar */}
@@ -64,7 +62,7 @@ const Navbar = props => {
               src="/images/shopping-cart.png"
             />
           </Link>
-          <h2 className="font-size-1-05em color-white">0</h2>
+          <h2 className="font-size-1-05em color-white">{itemsQuantity}</h2>
         </div>
       </nav>
     </div>
@@ -75,7 +73,9 @@ const Navbar = props => {
  * CONTAINER
  */
 const mapState = state => {
+  console.log(state)
   return {
+    localCart: state.localCart,
     email: state.user.email,
     isLoggedIn: !!state.user.id
   };
@@ -85,6 +85,9 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout());
+    },
+    handleSearchChange(event) {
+      dispatch(filterWordChange(event.target.value))
     }
   };
 };
