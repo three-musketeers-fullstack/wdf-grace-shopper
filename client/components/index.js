@@ -9,3 +9,4 @@ export { Login, Signup } from "./auth-form";
 export { default as SingleProduct } from "./singleProduct";
 export { default as Cart } from "./cart";
 export { default as Homepage } from "./Homepage";
+export { default as OrderHistory } from './orderhistory';

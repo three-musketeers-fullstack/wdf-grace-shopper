@@ -10,20 +10,25 @@ router.get("/", (req, res, next) => {
     .catch(next);
 });
 
-//To get all previous purchases for User
-
-router.get("/:userId", (req, res, next) => {
+//To get all previous purchases for User that have been completed
+router.get("/history/:userId", (req, res, next) => {
   Order.findAll({
     where: {
-      userId: req.params.id,
+      userId: req.params.userId,
       isPurchased: true
-    }
+
+    },
+    include:[{model: Product}]
   })
-    .then(result => result.data)
     .then(orderHistory => res.send(orderHistory))
     .catch(next);
 });
+
+
+
 // instantiate/update cart upon adding product
+
+
 
 router.put('/cart/:userId', (req, res, next) => {
   Order.findOrCreate({ where: { userId: req.params.userId } })
