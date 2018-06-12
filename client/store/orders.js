@@ -12,13 +12,22 @@ const getAllOrders = orders => {
   };
 };
 
-export const fetchAllOrders = orders => dispatch => {
+// export const fetchAllOrders = orders => dispatch => {
+//   axios
+//     .get(`/api/orders/`)
+//     .then(res => res.data)
+//     .then(foundOrders => dispatch(getAllOrders(foundOrders)))
+//     .catch(err => console.error(err));
+// };
+
+export const fetchUserOrders = (userId) => dispatch => {
   axios
-    .get("/api/orders/")
+    .get(`/api/orders/history/${userId}`)
     .then(res => res.data)
     .then(foundOrders => dispatch(getAllOrders(foundOrders)))
     .catch(err => console.error(err));
 };
+
 
 export default function(state = [], action) {
   switch (action.type) {

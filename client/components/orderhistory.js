@@ -2,13 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchUserOrders } from "../store";
 
 //need to connect to store, also user homepage is not used
 const OrderHistory = props => {
   // , total, userAddress, createdAt, products
-  const { userId, orders } = props;
+  const { userId, orders, getAllOrders } = props;
+  getAllOrders(userId);
   const ordersByUser = orders.filter(order => order[0].userId === userId);
-
+  console.log(props, "<><><><><>>");
   return (
     <div>
       <h1>Order History</h1>
@@ -59,7 +61,6 @@ const OrderHistory = props => {
                 })}
               </div>
             );
-          
           })}
       </div>
     </div>
@@ -67,9 +68,17 @@ const OrderHistory = props => {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     orders: state.orders,
     userId: state.user.id
   };
 };
-export default connect(mapStateToProps)(OrderHistory);
+
+const mapToDispatch = dispatch => ({
+  getAllOrders: userId => dispatch(fetchUserOrders(userId))
+});
+export default connect(
+  mapStateToProps,
+  mapToDispatch
+)(OrderHistory);
