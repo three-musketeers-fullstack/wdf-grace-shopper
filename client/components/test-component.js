@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
-import { fetchProductTotal } from '../store';
+import { fetchProductTotal, updateLocalCartState } from '../store';
 import { Router } from 'react-router-dom';
 
 const STRIPE_PUBLISHABLE = 'pk_test_emv5YJOmcMRleAc2xmr7pZyR';
@@ -17,7 +17,7 @@ const errorPayment = data => {
   alert('Payment Error');
 };
 
-const onToken = (total, description, history) => token =>
+const onToken = (total, description, history, fn) => token =>
   axios
     .post(PAYMENT_SERVER_URL, {
       description,
@@ -26,6 +26,8 @@ const onToken = (total, description, history) => token =>
       amount: total,
     })
     .then(result => {
+      localStorage.clear();
+      fn();
       successPayment(result);
       history.push('/');
     })
@@ -69,7 +71,8 @@ const Stripe = props => {
         amount={prodTotal.toFixed(2)}
         token={onToken(
           Number(prodTotal.toFixed(2)),
-          'The Marketplace for All Things Cubic', history
+          'The Marketplace for All Things Cubic', history,
+          props.clearCart
         )}
         currency="USD"
         stripeKey={STRIPE_PUBLISHABLE}
@@ -85,7 +88,13 @@ const mapToProps = state => ({
   prodTotal: state.products.prodTotal,
 });
 
-const StripeContainer = connect(mapToProps)(Stripe);
+const mapToDispatch = dispatch => ({
+  clearCart: () => {
+    dispatch(updateLocalCartState([]));
+  }
+})
+
+const StripeContainer = connect(mapToProps, mapToDispatch)(Stripe);
 export default StripeContainer;
 
 // onSubmit={this.handleSubmit}
