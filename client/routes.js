@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Login, Signup, UserHome, Cart, SingleProduct, Homepage, Checkout, Stripe } from "./components";
-import { me, fetchAllProducts, fetchAllCategories } from "./store";
+import { me, fetchAllProducts, fetchAllCategories, updateLocalCartState } from "./store";
 
 /**
  * COMPONENT
