@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -77,7 +76,8 @@ const dummyData = [
 //need to connect to store, also user homepage is not used
 const OrderHistory = props => {
   const { total, userAddress, createdAt, products } = dummyData[0];
-
+    //may have to filter store for products that match
+    //product Id in order
   return (
     <div>
       <h1>Order History</h1>

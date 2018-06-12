@@ -10,10 +10,12 @@ const ReviewProduct = props => {
         return product.id === paramId;
       })[0]
     : [];
+    
+
 }
 
 const mapToProps = state => ({
     products: state.products
 })
-
-export default ReviewProduct;
+const ReviewProductContainer = connect(mapToProps)(ReviewProduct)
+export default ReviewProductContainer;
