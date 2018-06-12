@@ -1,117 +1,75 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-// // import StripeCheckout from 'react-stripe-checkout';
 
-// export default class Checkout extends React.Component {
-//   // onToken = token => {
-//   //   fetch('/save-stripe-token', {
-//   //     method: 'POST',
-//   //     body: JSON.stringify(token),
-//   //   }).then(response => {
-//   //     response.json().then(data => {
-//   //       alert(`We are in business, ${data.email}`);
-//   //     });
-//   //   });
-//   // };
-
-//   // ...
-
-//   render() {
-//     return (
-//       <form action='/charge' method='POST'>
-//         <script
-//           src="https://checkout.stripe.com/checkout.js"
-//           className="stripe-button"
-//           data-key="pk_test_emv5YJOmcMRleAc2xmr7pZyR"
-//           data-amount="999"
-//           data-name="JonRosado"
-//           data-description="Widget"
-//           data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-//           data-locale="auto"
-//         />
-//         <input></input>
-//         <input></input>
-//         <input></input>
-//       </form>
-//     );
-//   }
-// }
-
-export default class Checkout extends React.Component {
+export default class Checkout extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-      stripeLoading: true,
-    };
-    // onStripeUpdate must be bound or else clicking on button will produce error.
-    this.onStripeUpdate = this.onStripeUpdate.bind(this);
-    // binding loadStripe as a best practice, not doing so does not seem to cause error.
-    this.loadStripe = this.loadStripe.bind(this);
-  }
-
-  loadStripe(onload) {
-    if (!window.StripeCheckout) {
-      const script = document.createElement('script');
-      script.onload = function() {
-        console.info('Stripe script loaded');
-        onload();
-      };
-      script.src = 'https://checkout.stripe.com/checkout.js';
-      document.head.appendChild(script);
-    } else {
-      onload();
-    }
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.loadStripe(() => {
-      this.stripeHandler = window.StripeCheckout.configure({
-        key: 'pk_test_emv5YJOmcMRleAc2xmr7pZyR',
-        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-        locale: 'auto',
-        token: token => {
-          this.setState({ loading: true });
-          // use fetch or some other AJAX library here if you dont want to use axios
-          axios.post('/api/checkout/charge', {
-            stripeToken: token.id,
-          });
-        },
-      });
-
-      this.setState({
-        stripeLoading: false,
-        // loading needs to be explicitly set false so component will render in 'loaded' state.
-        loading: false,
-      });
-    });
+    this.stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+    let elements = this.stripe.elements();
+    this.card = elements.create('card');
+    this.card.mount('#card-element');
   }
 
-  componentWillUnmount() {
-    if (this.stripeHandler) {
-      this.stripeHandler.close();
-    }
-  }
-
-  onStripeUpdate(e) {
-    this.stripeHandler.open({
-      name: 'test',
-      description: 'widget',
-      panelLabel: 'Update Credit Card',
-      allowRememberMe: false,
-    });
-    e.preventDefault();
+  handleSubmit(ev) {
+    ev.preventDefault();
+    if (!this.card) return;
+    this.stripe
+      .createToken(this.card)
+      .then(result => {
+        return axios.post('/api/checkout/charge', result);
+      })
+      .then(chargeRes => console.log(chargeRes))
+      .catch(console.err);
   }
 
   render() {
-    const { stripeLoading, loading } = this.state;
     return (
       <div>
-        {loading || stripeLoading ? (
-          <p>loading..</p>
-        ) : (
-          <button onClick={this.onStripeUpdate}>Add CC</button>
-        )}
+        <form onSubmit={this.handleSubmit} id="payment-form">
+          <div className="form-row">
+            <label>Shipping Information</label>
+            <label htmlFor="first-name">First Name</label>
+            <input type="text" defaultValue="Enter First Name" />
+
+            <label htmlFor="last-name">Last Name</label>
+            <input type="text" defaultValue="Enter Last Name" />
+
+            <label htmlFor="address-line1"># Street</label>
+            <input type="text" defaultValue="Enter # Street" />
+
+            <label htmlFor="address-line2">Apartment Number</label>
+            <input type="text" defaultValue="Enter Apt, Unit, etc." />
+
+            <label htmlFor="address-city">City</label>
+            <input type="text" defaultValue="Enter City" />
+
+            <label htmlFor="address-state">State</label>
+            <input type="text" defaultValue="Enter State" />
+
+            <label htmlFor="address-zipcode">Zip Code</label>
+            <input type="text" defaultValue="Enter Zip Code" />
+
+            <label htmlFor="card-element">First Name</label>
+            <input type="text" defaultValue="Enter First Name" />
+
+            <label htmlFor="card-element">Credit or debit card</label>
+            <div style={{ width: '30em' }} id="card-element">
+              a Stripe Element will be inserted here.
+            </div>
+
+            <div id="card-errors">Used to display form errors</div>
+          </div>
+
+          <input
+            type="submit"
+            className="submit"
+            value="Submit Payment"
+          />
+        </form>
       </div>
     );
   }

@@ -4,22 +4,22 @@ const stripe = require('stripe')(keySecret);
 const router = require('express').Router();
 module.exports = router;
 
-console.log(keySecret);
-router.post('/charge', (req, res, next) => {
-  let amount = 500;
 
-  stripe.customers
-    .create({
-      email: req.body.stripeEmail,
-      source: req.body.stripeToken,
-    })
-    .then(customer =>
-      stripe.charges.create({
-        amount,
-        description: 'Sample Charge',
-        currency: 'usd',
-        customer: customer.id,
-      })
-    )
-    .then(charge => res.send(charge));
+const postStripeCharge = res => (stripeErr, stripeRes) => {
+  // console.log('stripe error', stripeErr)
+  // console.log('stripe success', stripeRes);
+  if (stripeErr) {
+    res.status(500).send({ error: stripeErr });
+  } else {
+    res.status(200).send({ success: stripeRes });
+  }
+}
+
+router.get('/', (req, res) => {
+  res.send({ message: 'Hello Stripe checkout server!', timestamp: new Date().toISOString() })
+});
+
+router.post('/', (req, res) => {
+  console.log(req.body);
+  return stripe.charges.create(req.body, postStripeCharge(res));
 });
