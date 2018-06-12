@@ -1,19 +1,20 @@
 import axios from "axios";
-import history from "../history";
+
 
 // * ACTION TYPES
-const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";
 const GET_PRODUCTS = "GET_PRODUCTS";
-const GET_PRODUCTS_FROM_CART = 'GET_PRODUCTS_FROM_CART'
+const FILTER_WORD_CHANGE = 'FILTER_WORD_CHANGE';
 
 // * INITIAL STATE
 const productsState = {
   products: [],
-  cartProducts: []
+  filterWord: ''
 };
 
 // * ACTION CREATORS
 const getAllProducts = products => ({ type: GET_PRODUCTS, products });
+
+const filterWordAction = word => ({ type: FILTER_WORD_CHANGE, word})
 
 //THUNK CREATORS
 
@@ -24,11 +25,15 @@ export const fetchAllProducts = () => dispatch =>
     .then(res => dispatch(getAllProducts(res.data)))
     .catch(err => console.log(err));
 
+export const filterWordChange = word => dispatch => dispatch(filterWordAction(word))
+
 //REDUCER
 export default function(state = productsState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return { ...state, products: action.products };
+      case FILTER_WORD_CHANGE:
+      return { ...state, filterWord: action.word };
     default:
       return state;
   }
