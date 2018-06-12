@@ -1,16 +1,23 @@
 const router = require("express").Router();
-const { Order, User, Product } = require("../db/models");
+const { Order, User, Product, OrderProduct } = require("../db/models");
+const { security } = require("./security");
 module.exports = router;
 
+//look for req.user.isAdmin to see if a user is admin
+//only admin can see all orders
 router.get("/", (req, res, next) => {
   Order.findAll({
-    include: [{model: Product}]
+    where: {isPurchased: true},
+    include: [{ model: Product }]
   })
-    .then(orders => res.json(orders))
+    .then(orders => {
+      return security(orders, req, res);
+    })
     .catch(next);
 });
 
-//To get all previous purchases for User that have been completed
+//To get all previous purchases for User
+
 router.get("/history/:userId", (req, res, next) => {
   Order.findAll({
     where: {
@@ -20,7 +27,9 @@ router.get("/history/:userId", (req, res, next) => {
     },
     include:[{model: Product}]
   })
-    .then(orderHistory => res.send(orderHistory))
+    .then(orderHistory => {
+      return security(orderHistory, req, res);
+    })
     .catch(next);
 });
 
@@ -28,18 +37,15 @@ router.get("/history/:userId", (req, res, next) => {
 
 // instantiate/update cart upon adding product
 
-
-
-router.put('/cart/:userId', (req, res, next) => {
+router.put("/cart/:userId", (req, res, next) => {
   Order.findOrCreate({ where: { userId: req.params.userId } })
     .then(result => result[0])
     .then(order => {
       return order.addProducts(req.body.productId, {
-        through: { quantity: req.body.quantity },
+        through: { quantity: req.body.quantity }
       });
     })
     .then(updateOrder => {
-      console.log(updateOrder);
       res.send(updateOrder);
     })
     .catch(next);
@@ -61,9 +67,4 @@ router.put("/:userId/checkout", (req, res, next) => {
     ).then(result => res.status(203).send(result));
   });
 });
-//need to lock in price
 
-
-// router.put('/:orderId',(req,res,next) => {
-//     Order
-// })

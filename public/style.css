@@ -27,6 +27,10 @@ a {
   align-items: center;
 }
 
+.align-items-start {
+  align-items: flex-start;
+}
+
 .align-self-center {
   align-self: center;
 }
@@ -283,6 +287,10 @@ label {
   margin: 0px 80px;
 }
 
+.margin-100px-sides {
+  margin: 0px 100px;
+}
+
 .margin-250px-sides {
   margin: 0px 250px;
 }
@@ -356,6 +364,14 @@ nav a {
 
 .width-25 {
   width: 25%;
+}
+
+.width-60 {
+  width: 60%;
+}
+
+.width-40 {
+  width: 40%;
 }
 
 .width-200 {

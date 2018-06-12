@@ -77,16 +77,31 @@ const id = () => Math.floor(Math.random() * products.length) + 1;
 const users = [
   {
     email: "omri@omri.omri",
-    password: "123"
+    password: "123",
+    name: 'omri'
   },
   {
     email: "jon@web.dev",
-    password: "111"
+    password: "111",
+    name: 'jon',
+    isAdmin: true
+  },
+  {
+    email: "oz@ozcorp.com",
+    password: "8989",
+    name: 'oz',
+    isAdmin: true
   },
   {
     email: "cubelover@corner.three",
     password: "3927"
-  }
+  },
+  {
+    email: "augusto@fullstack.com",
+    password: "9999",
+    name: 'Flex Master',
+    isAdmin: true
+  },
 ];
 
 const seed = () =>
