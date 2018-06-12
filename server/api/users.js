@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Order, OrderProduct, Product } = require("../db/models");
+const { security } = require("./security");
 
 module.exports = router;
 
@@ -12,11 +13,22 @@ router.get("/", (req, res, next) => {
     attributes: ["id", "email"]
   })
     .then(users => {
-      if(!req.user || !req.user.isAdmin) res.status(401).send('Forbidden')
-      else res.send(users)
+      return security(users, req, res);
     })
     .catch(next);
 });
+
+//test
+
+router.get("/test", (req, res, next) => {
+  User.findAll({})
+    .then(user => {
+      return security(user, req, res);
+    })
+    .catch(next);
+});
+
+//test end
 
 router.get("/:userId", (req, res, next) => {
   User.findById(req.params.userId, {
@@ -32,8 +44,7 @@ router.get("/:userId", (req, res, next) => {
     ]
   })
     .then(user => {
-      if(!req.user || !req.user.isAdmin) res.status(401).send('Forbidden');
-      else res.send(user);
+      return security(user, req, res);
     })
     .catch(next);
 });

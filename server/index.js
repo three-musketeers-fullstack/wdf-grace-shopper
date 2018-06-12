@@ -43,7 +43,7 @@ const createApp = () => {
   app.use(compression())
 
 
-  
+  //series of middleware which set protect app from web vulnerabilities 
   app.use(helmet())
 
   // session middleware with passport
