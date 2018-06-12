@@ -74,10 +74,10 @@ const dummyData = [
         ]
     }
 ]
-
+//need to connect to store, also user homepage is not used
 const OrderHistory = props => {
   const { total, userAddress, createdAt, products } = dummyData[0];
-  console.log(products);
+
   return (
     <div>
       <h1>Order History</h1>
