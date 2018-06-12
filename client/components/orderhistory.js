@@ -57,9 +57,7 @@ const OrderHistory = props => {
                 })}
               </div>
             );
-            // return (
-
-            // );
+          
           })}
       </div>
     </div>
