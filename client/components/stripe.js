@@ -6,7 +6,7 @@ import { fetchProductTotal, updateLocalCartState } from '../store';
 import { Router } from 'react-router-dom';
 
 const STRIPE_PUBLISHABLE = 'pk_test_emv5YJOmcMRleAc2xmr7pZyR';
-const PAYMENT_SERVER_URL = 'https://localhost:8080/api/checkout';
+const PAYMENT_SERVER_URL = 'https://cube-zone.herokuapp.com/api/checkout';
 const fromUSDToCent = amount => amount * 100;
 
 const successPayment = data => {
@@ -71,7 +71,8 @@ const Stripe = props => {
         amount={prodTotal.toFixed(2)}
         token={onToken(
           Number(prodTotal.toFixed(2)),
-          'The Marketplace for All Things Cubic', history,
+          'The Marketplace for All Things Cubic',
+          history,
           props.clearCart
         )}
         currency="USD"
@@ -91,10 +92,13 @@ const mapToProps = state => ({
 const mapToDispatch = dispatch => ({
   clearCart: () => {
     dispatch(updateLocalCartState([]));
-  }
-})
+  },
+});
 
-const StripeContainer = connect(mapToProps, mapToDispatch)(Stripe);
+const StripeContainer = connect(
+  mapToProps,
+  mapToDispatch
+)(Stripe);
 export default StripeContainer;
 
 // onSubmit={this.handleSubmit}
