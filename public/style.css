@@ -192,6 +192,7 @@ img {
 }
 
 label {
+  margin: 10px;
   display: block;
 }
 
@@ -283,12 +284,20 @@ label {
   margin: 0px 30px;
 }
 
+.margin-50px-sides {
+  margin: 0px 50px;
+}
+
 .margin-80px-sides {
   margin: 0px 80px;
 }
 
 .margin-100px-sides {
   margin: 0px 100px;
+}
+
+.margin--100px-sides {
+  margin: 0px -100px
 }
 
 .margin-250px-sides {
