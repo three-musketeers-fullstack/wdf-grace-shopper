@@ -1,30 +1,9 @@
 import React, { Component } from 'react';
+import Stripe from './test-component';
 import axios from 'axios';
 
 export default class Checkout extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
-  componentDidMount() {
-    this.stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
-    let elements = this.stripe.elements();
-    this.card = elements.create('card');
-    this.card.mount('#card-element');
-  }
-
-  handleSubmit(ev) {
-    ev.preventDefault();
-    if (!this.card) return;
-    this.stripe
-      .createToken(this.card)
-      .then(result => {
-        return axios.post('/api/checkout/charge', result);
-      })
-      .then(chargeRes => console.log(chargeRes))
-      .catch(console.err);
-  }
 
   render() {
     return (
