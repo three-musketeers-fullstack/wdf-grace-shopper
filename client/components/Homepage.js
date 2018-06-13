@@ -55,7 +55,7 @@ export const Homepage = props => {
             );
           })}
         {userId ? (
-          <div className="add-button-style width-25vw">
+          <div className="categories margin-15px-10px font-size-1-05em">
             <Link to={"/history"}>Order History</Link>
           </div>
         ) : (
