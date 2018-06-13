@@ -1,22 +1,22 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const db = require('../db');
 
-const Order = db.define("order", {
+const Order = db.define('order', {
   isPurchased: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
   },
   total: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
+    defaultValue: 0,
   },
   userAddress: {
     type: Sequelize.TEXT,
   },
   userName: {
     type: Sequelize.STRING,
-  }
+  },
 });
 
 Order.beforeUpdate(orderInstance => {
