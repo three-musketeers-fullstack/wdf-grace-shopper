@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Login, Signup, UserHome, Cart, SingleProduct, Homepage, Checkout, Stripe, OrderHistory } from "./components";
-import { me, fetchAllProducts, fetchAllCategories, updateLocalCartState } from "./store";
+
+import { Login, Signup, Cart, SingleProduct, Homepage, Stripe, OrderHistory } from "./components";
+
+
+
+import { me, fetchAllProducts, fetchAllCategories, updateLocalCartState, fetchAllOrders } from "./store";
 
 /**
  * COMPONENT
@@ -68,6 +72,7 @@ const mapDispatch = dispatch => {
       dispatch(fetchAllCategories());
       dispatch(fetchAllProducts());
       dispatch(updateLocalCartState(localCart));
+      dispatch(fetchAllOrders())
     }
   };
 };

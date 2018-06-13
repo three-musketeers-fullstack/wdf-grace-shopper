@@ -7,10 +7,9 @@ import { fetchUserOrders } from "../store";
 //need to connect to store, also user homepage is not used
 const OrderHistory = props => {
   // , total, userAddress, createdAt, products
-  const { userId, orders, getAllOrders } = props;
-  getAllOrders(userId);
-  const ordersByUser = orders.filter(order => order[0].userId === userId);
-  console.log(props, "<><><><><>>");
+  const { userId, orders} = props;
+  const ordersByUser = orders.map(order => order.filter(item => item.userId === userId));
+  console.log(ordersByUser,'Should be users orders')
   return (
     <div>
       <h1>Order History</h1>
@@ -75,10 +74,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapToDispatch = dispatch => ({
-  getAllOrders: userId => dispatch(fetchUserOrders(userId))
-});
+
 export default connect(
-  mapStateToProps,
-  mapToDispatch
+  mapStateToProps
 )(OrderHistory);

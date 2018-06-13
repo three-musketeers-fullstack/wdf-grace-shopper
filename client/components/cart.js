@@ -1,16 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { updateLocalCartState } from "../store";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { updateLocalCartState, fetchProductTotal } from '../store';
 
 const Cart = props => {
-  const { localCart, handleDelete, handleQuantityChange } = props;
+  const { localCart, handleDelete, handleQuantityChange, handleTotal } = props;
 
   //Creates an array with unique products ids from the local storage
-  const localCartProductsIds = localStorage.getItem("cart")
+  const localCartProductsIds = localStorage.getItem('cart')
     ? Array.from(
         new Set(
-          JSON.parse(localStorage.getItem("cart")).map(
+          JSON.parse(localStorage.getItem('cart')).map(
             product => product.productId
           )
         )
@@ -92,7 +92,7 @@ const Cart = props => {
                           <h3>Price</h3>
                           <h1 className="price-red-color font-color-red">
                             $ {(product.price / 100).toFixed(2)}
-                          </h1>{" "}
+                          </h1>{' '}
                         </div>
                       ) : (
                         <div />
@@ -119,13 +119,13 @@ const Cart = props => {
                         </option>
                         {product.inventory > 10
                           ? new Array(10)
-                              .fill("bananas")
+                              .fill('bananas')
                               .map((n, indx) => (
                                 <option key={indx++}>{indx++}</option>
                               ))
                           : // Gives a limited quantity if the inventory is less than 10
                             new Array(product.inventory)
-                              .fill("bananas")
+                              .fill('bananas')
                               .map((n, indx) => (
                                 <option key={indx++}>{indx++}</option>
                               ))}
@@ -141,9 +141,14 @@ const Cart = props => {
           );
         })}
       <div className="flex-row just-cont-space-evenly margin-15px-10px">
-        <button className="add-button-style width-35vw">
-          Proceed to Checkout
-        </button>
+        <Link to="/checkout">
+          <button
+            onClick={() => handleTotal(total)}
+            className="add-button-style width-35vw"
+          >
+            Proceed to Checkout
+          </button>
+        </Link>
         <div className="flex-row align-items-center">
           <h1>Subtotal:</h1>
           <h1 className="price-red-color">$ {(total / 100).toFixed(2)}</h1>
@@ -156,23 +161,24 @@ const Cart = props => {
 const mapToProps = state => ({
   localCart: state.localCart,
   user: state.user,
-  products: state.products.products
+  products: state.products.products,
+  prodTotal: state.products.prodTotal,
 });
 
 const mapDispatch = dispatch => ({
   handleDelete: deletedProductId => {
     //filters local storage array by the id given in order to delete it from LS and redux store
     const newCart =
-      localStorage.getItem("cart") &&
-      Array.from(JSON.parse(localStorage.getItem("cart"))).filter(
+      localStorage.getItem('cart') &&
+      Array.from(JSON.parse(localStorage.getItem('cart'))).filter(
         product => product.productId !== deletedProductId
       );
-    localStorage.setItem("cart", JSON.stringify(newCart));
+    localStorage.setItem('cart', JSON.stringify(newCart));
 
     //Creates an array with unique products ids and quantity from the local storage
     const cache = {};
 
-    Array.from(JSON.parse(localStorage.getItem("cart"))).forEach(
+    Array.from(JSON.parse(localStorage.getItem('cart'))).forEach(
       product => (cache[product.productId] = product)
     );
 
@@ -188,29 +194,33 @@ const mapDispatch = dispatch => ({
     const reqBody = [
       {
         productId,
-        quantity
-      }
+        quantity,
+      },
     ];
 
     let cart = [];
 
     //updates n adds the local storage with new reqBody
-    let oldCart = JSON.parse(localStorage.getItem("cart"));
+    let oldCart = JSON.parse(localStorage.getItem('cart'));
     cart = oldCart.concat(reqBody);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
 
     //Creates an array with unique products ids and quantity from the local storage
     const cache = {};
 
-    Array.from(JSON.parse(localStorage.getItem("cart"))).forEach(
+    Array.from(JSON.parse(localStorage.getItem('cart'))).forEach(
       product => (cache[product.productId] = product)
     );
 
-    const localCart = localStorage.getItem("cart") ? Object.values(cache) : [];
+    const localCart = localStorage.getItem('cart') ? Object.values(cache) : [];
 
     //it updates the redux store with local storage
     dispatch(updateLocalCartState(localCart));
-  }
+  },
+
+  handleTotal: total => {
+    dispatch(fetchProductTotal(total));
+  },
 });
 
 const CartContainer = connect(
