@@ -36,33 +36,30 @@ const onToken = (total, description, history, fn) => token =>
 const Stripe = props => {
   const { prodTotal, history } = props;
   return (
-    <div>
+    <div className="align-items-center flex-column">
       <form id="payment-form">
         <div className="form-row">
-          <label>Shipping Information</label>
+          <label className="font-size-2em">Shipping Information</label>
           <label htmlFor="first-name">First Name</label>
-          <input type="text" defaultValue="Enter First Name" />
+          <input className="input-style" type="text" placeholder="Enter First Name" />
 
           <label htmlFor="last-name">Last Name</label>
-          <input type="text" defaultValue="Enter Last Name" />
+          <input className="input-style" type="text" placeholder="Enter Last Name" />
 
           <label htmlFor="address-line1"># Street</label>
-          <input type="text" defaultValue="Enter # Street" />
-
-          <label htmlFor="address-line2">Apartment Number</label>
-          <input type="text" defaultValue="Enter Apt, Unit, etc." />
+          <input className="input-style" type="text" placeholder="Enter # Street" />
 
           <label htmlFor="address-city">City</label>
-          <input type="text" defaultValue="Enter City" />
+          <input className="input-style" type="text" placeholder="Enter City" />
 
           <label htmlFor="address-state">State</label>
-          <input type="text" defaultValue="Enter State" />
+          <input className="input-style" type="text" placeholder="Enter State" />
 
           <label htmlFor="address-zipcode">Zip Code</label>
-          <input type="text" defaultValue="Enter Zip Code" />
+          <input className="input-style" type="text" placeholder="Enter Zip Code" />
 
           <label htmlFor="card-element">Phone Number</label>
-          <input type="text" defaultValue="Enter Phone Number" />
+          <input className="input-style" type="text" placeholder="Enter Phone Number" />
         </div>
       </form>
       <StripeCheckout
