@@ -6,7 +6,7 @@ import { fetchProductTotal, updateLocalCartState } from '../store';
 import { Router } from 'react-router-dom';
 
 const STRIPE_PUBLISHABLE = 'pk_test_emv5YJOmcMRleAc2xmr7pZyR';
-const PAYMENT_SERVER_URL = 'http://localhost:8080/api/checkout';
+const PAYMENT_SERVER_URL = 'https://localhost:8080/api/checkout';
 const fromUSDToCent = amount => amount * 100;
 
 const successPayment = data => {
