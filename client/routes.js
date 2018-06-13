@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Login, Signup, Cart, SingleProduct, Homepage, Stripe } from "./components";
-import { me, fetchAllProducts, fetchAllCategories, updateLocalCartState } from "./store";
+
+import { Login, Signup, Cart, SingleProduct, Homepage, Stripe, OrderHistory } from "./components";
+
+
+
+import { me, fetchAllProducts, fetchAllCategories, updateLocalCartState, fetchAllOrders } from "./store";
 
 /**
  * COMPONENT
@@ -24,12 +28,14 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/cart" component={Cart} />
+        <Route path='/history' component={OrderHistory}/>
         <Route path="/checkout" component={Stripe} />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route component={Homepage} />
+            
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -66,6 +72,7 @@ const mapDispatch = dispatch => {
       dispatch(fetchAllCategories());
       dispatch(fetchAllProducts());
       dispatch(updateLocalCartState(localCart));
+      dispatch(fetchAllOrders())
     }
   };
 };

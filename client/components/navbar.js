@@ -2,10 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout, filterWordChange } from "../store";
+import { logout, filterWordChange, updateLocalCartState } from "../store";
 
 const Navbar = props => {
-  const { handleClick, handleSearchChange, isLoggedIn, email, localCart } = props;
+  const {
+    handleClick,
+    handleSearchChange,
+    isLoggedIn,
+    email,
+    localCart
+  } = props;
 
   const itemsQuantity = localCart ? localCart.length : 0;
 
@@ -17,13 +23,18 @@ const Navbar = props => {
         </Link>
       </div>
       <div>
-        <input onChange={handleSearchChange} className="input-style" placeholder="Search for Items" />
+        <input
+          onChange={handleSearchChange}
+          className="input-style"
+          placeholder="Search for Items"
+        />
         {/* <button></button> */}
       </div>
       {/* displays text before @ in the navbar */}
       {isLoggedIn ? (
         <h3 className="color-white">
-          Hello, {email.slice(0, email.search("@"))}
+          Hello, {
+            email[0].toUpperCase() + email.slice(1, email.search("@"))}
         </h3>
       ) : (
         <div />
@@ -73,7 +84,7 @@ const Navbar = props => {
  * CONTAINER
  */
 const mapState = state => {
-  console.log(state)
+  console.log(state);
   return {
     localCart: state.localCart,
     email: state.user.email,
@@ -84,10 +95,11 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick() {
-      dispatch(logout());
+      dispatch(logout(), updateLocalCartState([]));
+      localStorage.clear();
     },
     handleSearchChange(event) {
-      dispatch(filterWordChange(event.target.value))
+      dispatch(filterWordChange(event.target.value));
     }
   };
 };

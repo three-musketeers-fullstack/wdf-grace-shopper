@@ -14,7 +14,6 @@ const SingleProduct = props => {
         return product.id === paramId;
       })[0]
     : [];
-
   return (
     <div className="flex-row margin-50px">
       <div>

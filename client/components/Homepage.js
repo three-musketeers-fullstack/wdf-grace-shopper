@@ -8,7 +8,7 @@ import { updateChosenCategory, displayAllProducts } from "../store";
  */
 
 export const Homepage = props => {
-  const { categories, filterWord } = props;
+  const { categories, filterWord, userId } = props;
   const { handleCategoryClick, handleAllProductsClick } = props;
 
   // Filters all the products by category if category is chosen otherwise it keeps all products
@@ -18,9 +18,12 @@ export const Homepage = props => {
         product.categories.find(
           category => category.name === props.chosenCategory
         )
-      )).filter(product => product.title.toLowerCase().match(filterWord.toLowerCase()));
+      )
+  ).filter(product =>
+    product.title.toLowerCase().match(filterWord.toLowerCase())
+  );
 
-
+  // console.log(userId,'><><><><><><><>')
   return (
     <div className="flex-row">
       <div id="sidebar">
@@ -51,6 +54,13 @@ export const Homepage = props => {
               </a>
             );
           })}
+        {userId ? (
+          <div className="categories margin-15px-10px font-size-1-05em">
+            <Link to={"/history"}>Order History</Link>
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
       <div className="flex-row flex-wrapper margin-30px width-200">
         {products.map(product => {
@@ -84,7 +94,7 @@ export const Homepage = props => {
                   </h3>
                 )
               ) : (
-                // It renders if inventory is 0 
+                // It renders if inventory is 0
                 <h3 className="margin-10px-20px font-color-red">
                   Out of Stock
                 </h3>
@@ -106,7 +116,8 @@ const mapState = state => {
     filterWord: state.products.filterWord,
     chosenCategory: state.categories.chosenCategory,
     products: state.products.products,
-    categories: state.categories.categories
+    categories: state.categories.categories,
+    userId: state.user.id
   };
 };
 

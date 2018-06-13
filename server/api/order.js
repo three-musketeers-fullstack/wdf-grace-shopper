@@ -7,6 +7,7 @@ module.exports = router;
 //only admin can see all orders
 router.get("/", (req, res, next) => {
   Order.findAll({
+    where: {isPurchased: true},
     include: [{ model: Product }]
   })
     .then(orders => {
@@ -22,13 +23,18 @@ router.get("/history/:userId", (req, res, next) => {
     where: {
       userId: req.params.userId,
       isPurchased: true
-    }
+
+    },
+    include:[{model: Product}]
   })
     .then(orderHistory => {
       return security(orderHistory, req, res);
     })
     .catch(next);
 });
+
+
+
 // instantiate/update cart upon adding product
 
 router.put("/cart/:userId", (req, res, next) => {

@@ -119,7 +119,6 @@ const seed = () =>
   Promise.all(products.map(product => Product.create(product)))
   .then(Promise.all(categories.map(category => Category.create(category))))
   .then(Promise.all(users.map(user => User.create(user))))
-
 const main = () => {
   console.log("Syncing db...");
   db.sync({ force: true })
