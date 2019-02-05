@@ -7,7 +7,7 @@ module.exports = router;
 //only admin can see all orders
 router.get("/", (req, res, next) => {
   Order.findAll({
-    where: {isPurchased: true},
+    where: { isPurchased: true },
     include: [{ model: Product }]
   })
     .then(orders => {
@@ -25,7 +25,7 @@ router.get("/history/:userId", (req, res, next) => {
       isPurchased: true
 
     },
-    include:[{model: Product}]
+    include: [{ model: Product }]
   })
     .then(orderHistory => {
       return security(orderHistory, req, res);
